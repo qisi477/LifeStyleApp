@@ -4,22 +4,23 @@ import kotlin.math.pow
 import kotlin.math.roundToInt
 
 class User constructor(
-    val firstName: String,
-    val lastName: String,
-    val age: Int,
-    var city: String,
-    var country: String,
+    var firstName: String,
+    var lastName: String,
+    var age: Int,
+    var city: String? = null,
+    var country: String? = null,
     var heightInches: Int,
     var weightLbs: Int,
-    var male: Boolean,
-    var female: Boolean,
-    var profilePic: Picture,
-    var activityLevel: String
-) {
+    var male: Boolean = false,
+    var female: Boolean = false,
+    var profilePicture: Picture? = null,
+    var activityLevel: String? = null,
     var weightChangeGoalPerWeek: Float = 0F
-
+) {
 
     fun calculateBMI(): Int {
+        //imperial BMI = 703 * weight/height^2
+        //metric BMI = weight/height^2
         return (703 * weightLbs / heightInches.toDouble().pow(2)).roundToInt()
     }
 
@@ -59,7 +60,7 @@ class User constructor(
     }
 
     fun showNearByHikes() {
-        TODO("alltrails api call based on location")
+        TODO("all trails (or something) api call based on location")
     }
 
 
