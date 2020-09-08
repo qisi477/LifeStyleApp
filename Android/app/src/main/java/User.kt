@@ -3,49 +3,59 @@ import kotlin.math.abs
 import kotlin.math.pow
 import kotlin.math.roundToInt
 
-class User constructor(
+data class UserData(
     var firstName: String,
     var lastName: String,
-    var age: Int,
+    var age: Int? = null,
     var city: String? = null,
     var country: String? = null,
-    var heightInches: Int,
-    var weightLbs: Int,
-    var male: Boolean = false,
-    var female: Boolean = false,
+    var heightInches: Int? = null,
+    var weightLbs: Int? = null,
+    var male: Boolean? = false,
     var profilePicture: Picture? = null,
     var activityLevel: String? = null,
-    var weightChangeGoalPerWeek: Float = 0F
-) {
+    var weightChangeGoalPerWeek: Float = 0F,
+)
 
-    fun calculateBMI(): Int {
-        //imperial BMI = 703 * weight/height^2
-        //metric BMI = weight/height^2
-        return (703 * weightLbs / heightInches.toDouble().pow(2)).roundToInt()
+class User(var userData: UserData) {
+
+    /**
+     * imperial BMI = 703 * weight/height^2
+     * metric BMI = weight/height^2
+     */
+    fun calculateBMI(): Int? {
+        return if (userData.weightLbs == null || userData.heightInches == null) {
+            null
+        } else {
+            (703 * userData.weightLbs!! / userData.heightInches!!.toDouble().pow(2)).roundToInt()
+        }
     }
 
     /**
-     * @return Basal Metabolic Rate, the basic number of calories I need to survive
+     * @return Basal Metabolic Rate, the basic number of calories one needs to survive
      */
-    fun calculateBMR(): Int {
+    fun calculateBMR(): Int? {
         //Revised Harris-Benedict Equation from https://www.calculator.net/bmr-calculator.html?ctype=standard&cage=25&csex=m&cheightfeet=5&cheightinch=10&cpound=160&cheightmeter=180&ckg=60&cmop=0&coutunit=c&cformula=m&cfatpct=20
-        return if (male) {
-            (13.397 * weightLbs + 4.799 * heightInches - 5.677 * age + 88.362).roundToInt()
+        return if (userData.male == null || userData.weightLbs == null || userData.heightInches == null || userData.age == null) {
+            null
+        } else if (userData.male!!) {
+            (13.397 * userData.weightLbs!! + 4.799 * userData.heightInches!! - 5.677 * userData.age!! + 88.362).roundToInt()
         } else { //Female formula
-            (9.247 * weightLbs + 3.098 * heightInches - 4.330 * age + 447.593).roundToInt()
+            (9.247 * userData.weightLbs!! + 3.098 * userData.heightInches!! - 4.330 * userData.age!! + 447.593).roundToInt()
         }
     }
 
     fun changeGoal(weightChangePerWeek: Float) {
-        weightChangeGoalPerWeek = weightChangePerWeek
+        userData.weightChangeGoalPerWeek = weightChangePerWeek
         if (abs(weightChangePerWeek) > 2) {
             //todo warn
         }
     }
 
-    fun calculateDailyCaloriesNeededForGoal(): Int {
+    fun calculateDailyCaloriesNeededForGoal(): Int? {
         val caloriesPerPound = 3500
-        return (calculateBMR() - weightChangeGoalPerWeek * caloriesPerPound / 7 + getCaloriesBurnedPerDay()).roundToInt()
+        return ((calculateBMR()?.minus(userData.weightChangeGoalPerWeek * caloriesPerPound / 7)
+            ?: return null) + getCaloriesBurnedPerDay()).roundToInt()
     }
 
     /**
