@@ -164,49 +164,49 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/tf_padding"
-                android:text="@string/age" />
+                android:text="@string/placeholder" />
 
             <TextView
                 android:id="@+id/loc_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/tf_padding"
-                android:text="@string/location" />
+                android:text="@string/placeholder" />
 
             <TextView
                 android:id="@+id/sex_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/tf_padding"
-                android:text="@string/sex" />
+                android:text="@string/placeholder" />
 
             <TextView
                 android:id="@+id/h_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/tf_padding"
-                android:text="@string/height" />
+                android:text="@string/placeholder" />
 
             <TextView
                 android:id="@+id/w_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/tf_padding"
-                android:text="@string/weight" />
+                android:text="@string/placeholder" />
 
             <TextView
                 android:id="@+id/bmr_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/tf_padding"
-                android:text="@string/bmr" />
+                android:text="@string/placeholder" />
 
             <TextView
                 android:id="@+id/dc_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/tf_padding"
-                android:text="@string/daily_calories" />
+                android:text="@string/placeholder" />
         </LinearLayout>
     </LinearLayout>
 
@@ -255,7 +255,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:fontFamily="sans-serif-black"
-        android:text="Varun"
+        android:text="@string/placeholder"
         android:textColor="@color/colorPrimary"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toStartOf="@+id/guideline"

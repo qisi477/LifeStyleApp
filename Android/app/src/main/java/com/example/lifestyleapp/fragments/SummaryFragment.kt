@@ -1,5 +1,7 @@
 package com.example.lifestyleapp.fragments
 
+import UserDataModel
+import android.content.res.Resources
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -7,11 +9,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.lifestyleapp.R
+import com.example.lifestyleapp.common.CalculateData
+import com.example.lifestyleapp.common.TAG_XX
+import kotlinx.android.synthetic.main.fragment_summary.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+private const val FIRST_NAME = "first_name"
+private const val LAST_NAME = "last_name"
+private const val AGE = "age"
+private const val CITY = "city"
+private const val COUNTRY = "country"
+private const val HEIGHT = "height"
+private const val WEIGHT = "weight"
+private const val IS_MALE = "is_male"
+private const val BMI = "BMI"
+private const val BMR = "BMR"
+private const val DAILY = "daily"
 
 /**
  * A simple [Fragment] subclass.
@@ -19,16 +31,34 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class SummaryFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private var first_name: String? = null
+    private var last_name: String? = null
+    private var age: String? = null
+    private var city: String? = null
+    private var country: String? = null
+    private var height: String? = null
+    private var weight: String? = null
+    private var sex: String? = null
+    private var bmi: String? = null
+    private var bmr: String? = null
+    private var daily: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+            first_name = it.getString(FIRST_NAME)
+            last_name = it.getString(LAST_NAME)
+            age = it.getString(AGE)
+            city = it.getString(CITY)
+            country = it.getString(COUNTRY)
+            height = it.getString(HEIGHT)
+            weight = it.getString(WEIGHT)
+            sex = it.getString(IS_MALE)
+            bmi = it.getString(BMI)
+            bmr = it.getString(BMR)
+            daily = it.getString(DAILY)
         }
+        Log.d(TAG_XX, "$first_name $last_name $age $city $country $height $weight $sex")
     }
 
     override fun onCreateView(
@@ -36,8 +66,45 @@ class SummaryFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        Log.d("SummaryPage", "Initialize the fragment")
+        Log.d(TAG_XX, "Initialize the fragment")
         return inflater.inflate(R.layout.fragment_summary, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        if (first_name != "null") {
+            name_tv.text = first_name
+        }
+        if (age != "null") {
+            age_tv.text = age
+        }
+        if (city != "null" && country != "null") {
+            val loc = "$city, $country"
+            loc_tv.text = loc
+        }
+        if (sex != "null") {
+            if (sex == "true"){
+                sex_tv.text = getString(R.string.male)
+            } else {
+                sex_tv.text = getString(R.string.female)
+            }
+        }
+        if (height != "null")  {
+            h_tv.text = height
+        }
+        if (weight != "null") {
+            w_tv.text = weight
+        }
+        if (bmr != "null") {
+            bmr_tv.text = weight
+        }
+        if (bmi != "null") {
+            val bmiConcat = "BMI: $bmi"
+            bmi_tv.text = bmiConcat
+        }
+        if (daily != "null") {
+            dc_tv.text = daily
+        }
     }
 
     companion object {
@@ -51,11 +118,20 @@ class SummaryFragment : Fragment() {
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
+        fun newInstance(usr: UserDataModel, calcu: CalculateData) =
             SummaryFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+                    putString(FIRST_NAME, usr.firstName)
+                    putString(LAST_NAME, usr.lastName)
+                    putString(AGE, usr.age.toString())
+                    putString(IS_MALE, usr.male.toString())
+                    putString(COUNTRY, usr.country)
+                    putString(CITY, usr.city)
+                    putString(HEIGHT, usr.heightInches.toString())
+                    putString(WEIGHT, usr.weightLbs.toString())
+                    putString(BMI, calcu.BMI.toString())
+                    putString(BMR, calcu.BMR.toString())
+                    putString(DAILY, calcu.daily.toString())
                 }
             }
     }
