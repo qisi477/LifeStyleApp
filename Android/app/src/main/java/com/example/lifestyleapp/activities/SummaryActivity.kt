@@ -19,7 +19,7 @@ class SummaryActivity : AppCompatActivity() {
         Log.d(TAG_XX, "Enter the summary activity")
         setContentView(R.layout.activity_summary)
         val userModel = UserModel(fakeUser)
-        val calculateData = CalculateData(userModel.calculateBMI(), userModel.calculateBMR())
+        val calculateData = CalculateData(userModel.calculateBMI(), userModel.calculateBMR(), userModel.calculateDailyCaloriesNeededForGoal())
         val summaryFragment = SummaryFragment.newInstance(fakeUser, calculateData)
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.frame_layout, summaryFragment, "summary_frag")

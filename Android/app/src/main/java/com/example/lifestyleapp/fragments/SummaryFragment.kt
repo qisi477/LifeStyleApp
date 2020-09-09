@@ -23,7 +23,7 @@ private const val WEIGHT = "weight"
 private const val IS_MALE = "is_male"
 private const val BMI = "BMI"
 private const val BMR = "BMR"
-
+private const val DAILY = "daily"
 
 /**
  * A simple [Fragment] subclass.
@@ -41,6 +41,7 @@ class SummaryFragment : Fragment() {
     private var sex: String? = null
     private var bmi: String? = null
     private var bmr: String? = null
+    private var daily: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,6 +56,7 @@ class SummaryFragment : Fragment() {
             sex = it.getString(IS_MALE)
             bmi = it.getString(BMI)
             bmr = it.getString(BMR)
+            daily = it.getString(DAILY)
         }
         Log.d(TAG_XX, "$first_name $last_name $age $city $country $height $weight $sex")
     }
@@ -100,6 +102,9 @@ class SummaryFragment : Fragment() {
             val bmiConcat = "BMI: $bmi"
             bmi_tv.text = bmiConcat
         }
+        if (daily != "null") {
+            dc_tv.text = daily
+        }
     }
 
     companion object {
@@ -126,6 +131,7 @@ class SummaryFragment : Fragment() {
                     putString(WEIGHT, usr.weightLbs.toString())
                     putString(BMI, calcu.BMI.toString())
                     putString(BMR, calcu.BMR.toString())
+                    putString(DAILY, calcu.daily.toString())
                 }
             }
     }
