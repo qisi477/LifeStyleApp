@@ -12,7 +12,7 @@ val fakeUser = UserDataModel(
     weightLbs = 130,
     male = true,
     activityLevel = "3",
-    weightChangeGoalPerWeek = 2.3f
+    weightChangeGoalPerWeek = -1.2f
 )
 
 data class CalculateData (

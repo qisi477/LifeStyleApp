@@ -24,6 +24,7 @@ private const val IS_MALE = "is_male"
 private const val BMI = "BMI"
 private const val BMR = "BMR"
 private const val DAILY = "daily"
+private const val GOAL = "goal"
 
 /**
  * A simple [Fragment] subclass.
@@ -42,6 +43,7 @@ class SummaryFragment : Fragment() {
     private var bmi: String? = null
     private var bmr: String? = null
     private var daily: String? = null
+    private var goal: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,8 +59,9 @@ class SummaryFragment : Fragment() {
             bmi = it.getString(BMI)
             bmr = it.getString(BMR)
             daily = it.getString(DAILY)
+            goal = it.getString(GOAL)
         }
-        Log.d(TAG_XX, "$first_name $last_name $age $city $country $height $weight $sex")
+        Log.d(TAG_XX, "$first_name $last_name $age $city $country $height $weight $sex $goal")
     }
 
     override fun onCreateView(
@@ -96,7 +99,7 @@ class SummaryFragment : Fragment() {
             w_tv.text = weight
         }
         if (bmr != "null") {
-            bmr_tv.text = weight
+            bmr_tv.text = bmr
         }
         if (bmi != "null") {
             val bmiConcat = "BMI: $bmi"
@@ -104,6 +107,14 @@ class SummaryFragment : Fragment() {
         }
         if (daily != "null") {
             dc_tv.text = daily
+        }
+        if (goal != "null") {
+            val weightChange = goal?.toDouble()
+            if (weightChange != null) {
+                if (weightChange > 0) goal_tv.text = getString(R.string.gain)
+                else if (weightChange == 0.0) goal_tv.text = getString(R.string.maintain)
+                else goal_tv.text = getString(R.string.loss)
+            }
         }
     }
 
@@ -132,6 +143,7 @@ class SummaryFragment : Fragment() {
                     putString(BMI, calcu.BMI.toString())
                     putString(BMR, calcu.BMR.toString())
                     putString(DAILY, calcu.daily.toString())
+                    putString(GOAL, usr.weightChangeGoalPerWeek.toString())
                 }
             }
     }
