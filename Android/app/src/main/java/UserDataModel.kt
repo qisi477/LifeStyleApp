@@ -11,5 +11,5 @@ data class UserDataModel(
     var male: Boolean? = null,
     var profilePicture: Picture? = null,
     var activityLevel: String? = null,
-    var weightChangeGoalPerWeek: Float = 0F,
+    var weightChangeGoalPerWeek: Float? = null
 )

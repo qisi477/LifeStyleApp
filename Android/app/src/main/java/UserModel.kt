@@ -1,7 +1,7 @@
 import kotlin.math.pow
 import kotlin.math.roundToInt
 
-class UserModel(var userDataModel: UserDataModel) {
+class UserModel(private var userDataModel: UserDataModel) {
 
     /**
      * imperial BMI = 703 * weight/height^2
@@ -41,23 +41,30 @@ class UserModel(var userDataModel: UserDataModel) {
 
     fun calculateDailyCaloriesNeededForGoal(): Int? {
         val caloriesPerPound = 3500
-        return ((calculateBMR()?.minus(userDataModel.weightChangeGoalPerWeek * caloriesPerPound / 7)
-            ?: return null) + getCaloriesBurnedPerDay()).roundToInt()
+        var bmr = calculateBMR()
+        if (bmr == null) {
+            bmr = 2000
+        }
+
+        var goal = userDataModel.weightChangeGoalPerWeek
+        if (goal == null) {
+            goal = 0F
+        }
+
+        var caloriesBurnedPerDay = getCaloriesBurnedPerDay()
+        if (caloriesBurnedPerDay == null) {
+            caloriesBurnedPerDay = 0F
+        }
+
+        return (bmr - goal * caloriesPerPound / 7 + caloriesBurnedPerDay).roundToInt()
     }
 
     /**
      * based on activity Level
      */
-    private fun getCaloriesBurnedPerDay(): Float {
-        TODO("getCaloriesBurnedPerDay Not yet implemented")
-    }
-
-    fun getWeather() {
-        TODO("google weather api call based on city and country")
-    }
-
-    fun showNearByHikes() {
-        TODO("all trails (or something) api call based on location")
+    private fun getCaloriesBurnedPerDay(): Float? {
+        return null
+        //TODO getCaloriesBurnedPerDay Not yet implemented
     }
 
 }

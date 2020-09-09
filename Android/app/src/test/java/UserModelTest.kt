@@ -6,8 +6,8 @@ class UserModelTest {
     private lateinit var userDataModelFooBar: UserDataModel
     private lateinit var userModelFooBar: UserModel
 
-    private lateinit var userDataModelWhatsitTooya: UserDataModel
-    private lateinit var userModelWhatsitTooya: UserModel
+    private lateinit var userDataModelNameOnly: UserDataModel
+    private lateinit var userModelNameOnly: UserModel
 
     @Before
     fun setUp() {
@@ -23,11 +23,11 @@ class UserModelTest {
         )
         userModelFooBar = UserModel(userDataModelFooBar)
 
-        userDataModelWhatsitTooya = UserDataModel(
+        userDataModelNameOnly = UserDataModel(
             firstName = "Whatsit",
             lastName = "Tooya"
         )
-        userModelWhatsitTooya = UserModel(userDataModelWhatsitTooya)
+        userModelNameOnly = UserModel(userDataModelNameOnly)
 
     }
 
@@ -47,16 +47,16 @@ class UserModelTest {
 
     @Test
     fun createNameOnlyUser() {
-        assertEquals(userDataModelWhatsitTooya.firstName, "Whatsit")
-        assertEquals(userDataModelWhatsitTooya.lastName, "Tooya")
-        assertEquals(userDataModelWhatsitTooya.weightChangeGoalPerWeek, 0F)
-        assertNull(userDataModelWhatsitTooya.activityLevel)
-        assertNull(userDataModelWhatsitTooya.age)
-        assertNull(userDataModelWhatsitTooya.city)
-        assertNull(userDataModelWhatsitTooya.country)
-        assertNull(userDataModelWhatsitTooya.heightInches)
-        assertNull(userDataModelWhatsitTooya.weightLbs)
-        assertNull(userDataModelWhatsitTooya.profilePicture)
+        assertEquals(userDataModelNameOnly.firstName, "Whatsit")
+        assertEquals(userDataModelNameOnly.lastName, "Tooya")
+        assertNull(userDataModelNameOnly.weightChangeGoalPerWeek)
+        assertNull(userDataModelNameOnly.activityLevel)
+        assertNull(userDataModelNameOnly.age)
+        assertNull(userDataModelNameOnly.city)
+        assertNull(userDataModelNameOnly.country)
+        assertNull(userDataModelNameOnly.heightInches)
+        assertNull(userDataModelNameOnly.weightLbs)
+        assertNull(userDataModelNameOnly.profilePicture)
     }
 
     @Test
@@ -66,7 +66,7 @@ class UserModelTest {
 
     @Test
     fun calculateNullBMI() {
-        assertNull(userModelWhatsitTooya.calculateBMI())
+        assertNull(userModelNameOnly.calculateBMI())
     }
 
     @Test
@@ -80,33 +80,29 @@ class UserModelTest {
 
     @Test
     fun calculateNullBMR() {
-        assertNull(userModelWhatsitTooya.calculateBMR())
+        assertNull(userModelNameOnly.calculateBMR())
+        assertNotNull(userModelFooBar.calculateBMR())
     }
 
     @Test
     fun changeGoal() {
-        assertEquals(0F, userDataModelFooBar.weightChangeGoalPerWeek)
+        assertNull(userDataModelFooBar.weightChangeGoalPerWeek)
         userModelFooBar.changeGoal(2F)
         assertEquals(2F, userDataModelFooBar.weightChangeGoalPerWeek)
         assertNotEquals(0F, userDataModelFooBar.weightChangeGoalPerWeek)
+        assertNotNull(userDataModelFooBar.weightChangeGoalPerWeek)
     }
 
     @Test
     fun calculateDailyCaloriesNeededForGoal() {
-
-    }
-
-    @Test
-    fun getWeather() {
-    }
-
-    @Test
-    fun showNearByHikes() {
-    }
-
-    @Test
-    fun getUserDataModel() {
-
+        assertEquals(
+            userModelFooBar.calculateBMR(),
+            userModelFooBar.calculateDailyCaloriesNeededForGoal()
+        )
+        assertEquals(
+            2000,
+            userModelNameOnly.calculateDailyCaloriesNeededForGoal()
+        )
     }
 
     @Test
@@ -122,18 +118,17 @@ class UserModelTest {
     @Test
     fun equalsItsSelfTest() {
         assertTrue(userDataModelFooBar == userDataModelFooBar)
-        assertTrue(userDataModelFooBar != userDataModelWhatsitTooya)
+        assertTrue(userDataModelFooBar != userDataModelNameOnly)
         assertTrue(!userDataModelFooBar.equals(userModelFooBar))
         assertTrue(!userModelFooBar.equals(userDataModelFooBar))
-        assertTrue(userModelFooBar != userModelWhatsitTooya)
+        assertTrue(userModelFooBar != userModelNameOnly)
     }
 
     @Test
     fun notNullTest() {
         assertNotNull(userDataModelFooBar)
         assertNotNull(userModelFooBar)
-        assertNotNull(userModelWhatsitTooya)
-        assertNotNull(userDataModelWhatsitTooya)
+        assertNotNull(userModelNameOnly)
+        assertNotNull(userDataModelNameOnly)
     }
-
 }
