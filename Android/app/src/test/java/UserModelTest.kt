@@ -1,3 +1,5 @@
+import com.example.lifestyleapp.common.UserDataModel
+import com.example.lifestyleapp.common.UserModel
 import com.example.lifestyleapp.common.fakeUser
 import org.junit.Assert.*
 import org.junit.Before

@@ -1,7 +1,6 @@
 package com.example.lifestyleapp.fragments
 
-import UserDataModel
-import android.content.res.Resources
+import com.example.lifestyleapp.common.UserDataModel
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -10,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.lifestyleapp.R
 import com.example.lifestyleapp.common.CalculateData
-import com.example.lifestyleapp.common.LocalData
 import com.example.lifestyleapp.common.TAG_XX
 import kotlinx.android.synthetic.main.fragment_summary.*
 

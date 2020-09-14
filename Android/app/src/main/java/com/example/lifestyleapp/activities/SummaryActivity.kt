@@ -1,15 +1,11 @@
 package com.example.lifestyleapp.activities
 
-import UserModel
+import com.example.lifestyleapp.common.UserModel
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.Window
-import android.view.WindowManager
-import androidx.fragment.app.FragmentTransaction
 import com.example.lifestyleapp.R
 import com.example.lifestyleapp.common.*
-import com.example.lifestyleapp.common.fakeUser
 import com.example.lifestyleapp.fragments.SummaryFragment
 
 class SummaryActivity : AppCompatActivity() {

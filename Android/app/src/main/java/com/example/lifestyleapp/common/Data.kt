@@ -1,7 +1,5 @@
 package com.example.lifestyleapp.common
 
-import UserDataModel
-
 val fakeUser = UserDataModel(
     firstName = "Varun",
     lastName = "Shankar",

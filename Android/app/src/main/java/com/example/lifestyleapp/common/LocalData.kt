@@ -1,6 +1,5 @@
 package com.example.lifestyleapp.common
 
-import UserDataModel
 import android.app.Activity
 import android.content.Context
 import com.google.gson.Gson
