@@ -12,7 +12,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val localData = LocalData(this)
-        // localData.saveUser(fakeUser)
+         localData.saveUser(fakeUser)
         if (localData.getUser() == null) {
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
