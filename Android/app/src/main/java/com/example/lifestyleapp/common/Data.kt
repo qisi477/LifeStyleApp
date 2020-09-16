@@ -1,5 +1,14 @@
 package com.example.lifestyleapp.common
 
+enum class Signals {
+    SUMMARY,
+    LOGOUT,
+    HIKE,
+    WEATHER,
+    Setting
+}
+
+
 val fakeUser = UserDataModel(
     firstName = "Varun",
     lastName = "Shankar",

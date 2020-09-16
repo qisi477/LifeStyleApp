@@ -1,11 +1,16 @@
 package com.example.lifestyleapp.fragments
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.lifestyleapp.R
+import com.example.lifestyleapp.common.LocalData
+import com.example.lifestyleapp.common.Signals
+import com.example.lifestyleapp.common.TAG_XX
 import com.example.lifestyleapp.common.UserDataModel
 import kotlinx.android.synthetic.main.fragment_menu.*
 
@@ -19,7 +24,7 @@ private const val GOAL = "goal"
  */
 class MenuFragment : Fragment(), View.OnClickListener{
     private var firstName: String? = null
-
+    private var dataParser: DataParser? = null
     private var goal: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,6 +32,19 @@ class MenuFragment : Fragment(), View.OnClickListener{
         arguments?.let {
             firstName = it.getString(FIRST_NAME)
             goal = it.getString(GOAL)
+        }
+    }
+
+    interface DataParser {
+        fun dataHandler(command: Signals)
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        try {
+            dataParser = context as DataParser
+        } catch (e :ClassCastException) {
+            throw java.lang.ClassCastException("${context.toString()} must implement DataParser Interface")
         }
     }
 
@@ -66,7 +84,7 @@ class MenuFragment : Fragment(), View.OnClickListener{
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(usr: UserDataModel, param2: String) =
+        fun newInstance(usr: UserDataModel) =
             MenuFragment().apply {
                 arguments = Bundle().apply {
                     putString(FIRST_NAME, usr.firstName)
@@ -83,14 +101,15 @@ class MenuFragment : Fragment(), View.OnClickListener{
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.summary_lv -> {
+                Log.d(TAG_XX, "Click summary linear view")
+                dataParser?.dataHandler(Signals.SUMMARY) ?: return
             }
             R.id.logout_lv -> {
+                Log.d(TAG_XX, "Click logout linear view")
+                val localData = LocalData(activity)
+                localData.deleteUser()
+                dataParser?.dataHandler(Signals.LOGOUT) ?: return
             }
         }
-    }
-
-
-    fun isTablet(): Boolean{
-        return resources.getBoolean(R.bool.isTablet)
     }
 }

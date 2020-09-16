@@ -4,7 +4,7 @@ import android.app.Activity
 import android.content.Context
 import com.google.gson.Gson
 
-class LocalData (val activity: Activity?) {
+class LocalData (activity: Activity?) {
     private val DATA_LABEL = "LocalData"
     private val USER_LABEL = "CurrentUser"
 
@@ -22,5 +22,11 @@ class LocalData (val activity: Activity?) {
         val usr = sharedPreferences?.getString(USER_LABEL, null) ?: return null
         val gson = Gson()
         return gson.fromJson(usr, UserDataModel::class.java)
+    }
+
+    fun deleteUser() {
+        val editor = sharedPreferences?.edit() ?: return
+        editor.remove(USER_LABEL)
+        editor.apply()
     }
 }
