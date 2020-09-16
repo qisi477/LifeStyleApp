@@ -15,8 +15,7 @@ class UserModelTest {
     @Before
     fun setUp() {
         userDataModelFooBar = UserDataModel(
-            firstName = "Foo",
-            lastName = "Bar",
+            userName = "FooBar",
             age = 18,
             city = "Salt Lake City",
             country = "United States of America",
@@ -27,8 +26,7 @@ class UserModelTest {
         userModelFooBar = UserModel(userDataModelFooBar)
 
         userDataModelNameOnly = UserDataModel(
-            firstName = "Whatsit",
-            lastName = "Tooya"
+            userName = "Whatsit"
         )
         userModelNameOnly = UserModel(userDataModelNameOnly)
 
@@ -36,8 +34,7 @@ class UserModelTest {
 
     @Test
     fun createUserTestFooBar() {
-        assertEquals("Foo", userDataModelFooBar.firstName)
-        assertEquals("Bar", userDataModelFooBar.lastName)
+        assertEquals("FooBar", userDataModelFooBar.userName)
         assertEquals(18, userDataModelFooBar.age)
         assertEquals("Salt Lake City", userDataModelFooBar.city)
         assertEquals("United States of America", userDataModelFooBar.country)
@@ -50,8 +47,7 @@ class UserModelTest {
 
     @Test
     fun createNameOnlyUser() {
-        assertEquals(userDataModelNameOnly.firstName, "Whatsit")
-        assertEquals(userDataModelNameOnly.lastName, "Tooya")
+        assertEquals(userDataModelNameOnly.userName, "Whatsit")
         assertNull(userDataModelNameOnly.weightChangeGoalPerWeek)
         assertNull(userDataModelNameOnly.activityLevel)
         assertNull(userDataModelNameOnly.age)
@@ -138,7 +134,7 @@ class UserModelTest {
 
     @Test
     fun fakeUserTest() {
-        var fakeUserModel = UserModel(fakeUser)
+        val fakeUserModel = UserModel(fakeUser)
         assertEquals(19, fakeUserModel.calculateBMI())
         assertEquals(1561, fakeUserModel.calculateBMR())
         assertEquals(961, fakeUserModel.calculateDailyCaloriesNeededForGoal())

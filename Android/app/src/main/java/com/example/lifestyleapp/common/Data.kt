@@ -10,8 +10,7 @@ enum class Signals {
 
 
 val fakeUser = UserDataModel(
-    firstName = "Varun",
-    lastName = "Shankar",
+    userName = "Varun",
     age = 30,
     city = "Salt Lake City",
     country = "US",
@@ -23,8 +22,7 @@ val fakeUser = UserDataModel(
 )
 
 val fakeUser2 = UserDataModel(
-    firstName = "SomeOne",
-    lastName = "Shankar",
+    userName = "SomeOne",
     age = 30,
     city = "Salt Lake City",
     country = "US",

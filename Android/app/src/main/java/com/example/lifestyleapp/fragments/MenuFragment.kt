@@ -3,10 +3,10 @@ package com.example.lifestyleapp.fragments
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.example.lifestyleapp.R
 import com.example.lifestyleapp.common.LocalData
 import com.example.lifestyleapp.common.Signals
@@ -44,7 +44,7 @@ class MenuFragment : Fragment(), View.OnClickListener{
         try {
             dataParser = context as DataParser
         } catch (e :ClassCastException) {
-            throw java.lang.ClassCastException("${context.toString()} must implement DataParser Interface")
+            throw java.lang.ClassCastException("$context must implement DataParser Interface")
         }
     }
 
@@ -87,7 +87,7 @@ class MenuFragment : Fragment(), View.OnClickListener{
         fun newInstance(usr: UserDataModel) =
             MenuFragment().apply {
                 arguments = Bundle().apply {
-                    putString(FIRST_NAME, usr.firstName)
+                    putString(FIRST_NAME, usr.userName)
                     putString(GOAL, usr.weightChangeGoalPerWeek.toString())
                 }
             }

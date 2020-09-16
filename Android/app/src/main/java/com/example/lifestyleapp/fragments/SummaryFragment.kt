@@ -1,19 +1,18 @@
 package com.example.lifestyleapp.fragments
 
-import com.example.lifestyleapp.common.UserDataModel
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.example.lifestyleapp.R
 import com.example.lifestyleapp.common.CalculateData
 import com.example.lifestyleapp.common.TAG_XX
+import com.example.lifestyleapp.common.UserDataModel
 import kotlinx.android.synthetic.main.fragment_summary.*
 
-private const val FIRST_NAME = "first_name"
-private const val LAST_NAME = "last_name"
+private const val USER_NAME = "first_name"
 private const val AGE = "age"
 private const val CITY = "city"
 private const val COUNTRY = "country"
@@ -31,8 +30,7 @@ private const val GOAL = "goal"
  * create an instance of this fragment.
  */
 class SummaryFragment : Fragment() {
-    private var first_name: String? = null
-    private var last_name: String? = null
+    private var user_name: String? = null
     private var age: String? = null
     private var city: String? = null
     private var country: String? = null
@@ -47,8 +45,7 @@ class SummaryFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            first_name = it.getString(FIRST_NAME)
-            last_name = it.getString(LAST_NAME)
+            user_name = it.getString(USER_NAME)
             age = it.getString(AGE)
             city = it.getString(CITY)
             country = it.getString(COUNTRY)
@@ -60,12 +57,12 @@ class SummaryFragment : Fragment() {
             daily = it.getString(DAILY)
             goal = it.getString(GOAL)
         }
-        Log.d(TAG_XX, "$first_name $last_name $age $city $country $height $weight $sex $goal")
+        Log.d(TAG_XX, "$user_name $age $city $country $height $weight $sex $goal")
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         // Inflate the layout for this fragment
         Log.d(TAG_XX, "Initialize the fragment")
@@ -74,8 +71,8 @@ class SummaryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (first_name != "null") {
-            name_tv.text = first_name
+        if (user_name != "null") {
+            name_tv.text = user_name
         }
         if (age != "null") {
             age_tv.text = age
@@ -85,13 +82,13 @@ class SummaryFragment : Fragment() {
             loc_tv.text = loc
         }
         if (sex != "null") {
-            if (sex == "true"){
+            if (sex == "true") {
                 sex_tv.text = getString(R.string.male)
             } else {
                 sex_tv.text = getString(R.string.female)
             }
         }
-        if (height != "null")  {
+        if (height != "null") {
             h_tv.text = height
         }
         if (weight != "null") {
@@ -131,8 +128,7 @@ class SummaryFragment : Fragment() {
         fun newInstance(usr: UserDataModel, calcu: CalculateData) =
             SummaryFragment().apply {
                 arguments = Bundle().apply {
-                    putString(FIRST_NAME, usr.firstName)
-                    putString(LAST_NAME, usr.lastName)
+                    putString(USER_NAME, usr.userName)
                     putString(AGE, usr.age.toString())
                     putString(IS_MALE, usr.male.toString())
                     putString(COUNTRY, usr.country)
