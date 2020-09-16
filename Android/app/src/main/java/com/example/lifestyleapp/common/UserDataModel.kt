@@ -3,8 +3,7 @@ package com.example.lifestyleapp.common
 import android.graphics.Picture
 
 data class UserDataModel(
-    var firstName: String,
-    var lastName: String,
+    var userName: String,
     var age: Int? = null,
     var city: String? = null,
     var country: String? = null,
@@ -13,5 +12,5 @@ data class UserDataModel(
     var male: Boolean? = null,
     var profilePicture: Picture? = null,
     var activityLevel: String? = null,
-    var weightChangeGoalPerWeek: Float? = null
+    var weightChangeGoalPerWeek: Float? = null,
 )

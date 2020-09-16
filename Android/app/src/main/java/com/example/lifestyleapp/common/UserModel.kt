@@ -62,11 +62,16 @@ class UserModel(private var userDataModel: UserDataModel) {
     }
 
     /**
-     * based on activity Level
+     * very rough estimate of excess calories burned per day through exercise
      */
     private fun getCaloriesBurnedPerDay(): Float? {
-        return null
-        //TODO getCaloriesBurnedPerDay Not yet implemented
+        return when (userDataModel.activityLevel) {
+            //todo make accurate and robust
+            "Sedentary" -> 0f
+            "Active" -> 500f
+            null -> null
+            else -> null
+        }
     }
 
 }
