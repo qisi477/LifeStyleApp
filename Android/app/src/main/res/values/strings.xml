@@ -27,4 +27,9 @@
     <string name="placeholder">"-"</string>
     <string name="male">"Male"</string>
     <string name="female">"Female"</string>
+    <string name="summary">Summary</string>
+    <string name="set_goal">Set Goal</string>
+    <string name="hikes">Hikes</string>
+    <string name="weather">Weather</string>
+    <string name="logout">Log Out</string>
 </resources>

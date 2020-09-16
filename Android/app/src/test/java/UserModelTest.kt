@@ -1,3 +1,6 @@
+import com.example.lifestyleapp.common.UserDataModel
+import com.example.lifestyleapp.common.UserModel
+import com.example.lifestyleapp.common.fakeUser
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
@@ -62,6 +65,7 @@ class UserModelTest {
     @Test
     fun calculateBMI() {
         assertEquals(25, userModelFooBar.calculateBMI())
+
     }
 
     @Test
@@ -130,5 +134,13 @@ class UserModelTest {
         assertNotNull(userModelFooBar)
         assertNotNull(userModelNameOnly)
         assertNotNull(userDataModelNameOnly)
+    }
+
+    @Test
+    fun fakeUserTest() {
+        var fakeUserModel = UserModel(fakeUser)
+        assertEquals(19, fakeUserModel.calculateBMI())
+        assertEquals(1561, fakeUserModel.calculateBMR())
+        assertEquals(961, fakeUserModel.calculateDailyCaloriesNeededForGoal())
     }
 }

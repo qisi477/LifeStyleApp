@@ -1,3 +1,5 @@
+package com.example.lifestyleapp.common
+
 import android.graphics.Picture
 
 data class UserDataModel(

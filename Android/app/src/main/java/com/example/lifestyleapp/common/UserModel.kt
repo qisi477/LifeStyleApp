@@ -1,3 +1,5 @@
+package com.example.lifestyleapp.common
+
 import kotlin.math.pow
 import kotlin.math.roundToInt
 
@@ -56,7 +58,7 @@ class UserModel(private var userDataModel: UserDataModel) {
             caloriesBurnedPerDay = 0F
         }
 
-        return (bmr + goal * caloriesPerPound / 7 + caloriesBurnedPerDay).roundToInt()
+        return (bmr + (goal / 7 * caloriesPerPound) + caloriesBurnedPerDay).roundToInt()
     }
 
     /**
