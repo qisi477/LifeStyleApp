@@ -183,15 +183,19 @@ class UserModelTest {
                 "  \"cod\": 200\n" +
                 "}"
         val weather = jsonTextToWeather(exampleApiResponse)
-        assertEquals(-122.08F, weather!!.coord.lon)
-        assertEquals(37.39F, weather.coord.lat)
-        assertEquals(MainWeather(temp = 281.52F,
-            feels_like = 278.99F,
-            temp_min = 280.15F,
-            temp_max = 283.71F,
-            pressure = 1016,
-            humidity = 93), weather.mainWeather)
-        assertEquals(Wind(speed = 1.5F, deg = 350F), weather.wind)
+        assertEquals(-122.08F, weather!!.coord.longitude)
+        assertEquals(37.39F, weather.coord.latitude)
+        assertEquals(
+            MainWeather(
+                tempKelvin = 281.52F,
+                feelsLikeTempKelvin = 278.99F,
+                tempMinKelvin = 280.15F,
+                tempMaxKelvin = 283.71F,
+                pressure = 1016,
+                humidity = 93
+            ), weather.mainWeather
+        )
+        assertEquals(Wind(speed = 1.5F, degreesDirection = 350F), weather.wind)
     }
 
 }

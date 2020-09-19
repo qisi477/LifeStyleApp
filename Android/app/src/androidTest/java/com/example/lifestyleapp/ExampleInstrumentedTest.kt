@@ -5,6 +5,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.example.lifestyleapp.common.Location
 import com.example.lifestyleapp.common.getWeather
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -30,6 +31,9 @@ class ExampleInstrumentedTest {
             countryCode = "US",
             stateCode = "UT"
         )
-        getWeather(location)
+        val weather = getWeather(location)
+        assertNotNull(weather)
+        assertEquals(41.22F, weather!!.coord.latitude)
+        assertEquals(-111.97F, weather.coord.longitude)
     }
 }
