@@ -1,6 +1,4 @@
-import com.example.lifestyleapp.common.UserDataModel
-import com.example.lifestyleapp.common.UserModel
-import com.example.lifestyleapp.common.fakeUser
+import com.example.lifestyleapp.common.*
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
@@ -139,4 +137,61 @@ class UserModelTest {
         assertEquals(1561, fakeUserModel.calculateBMR())
         assertEquals(961, fakeUserModel.calculateDailyCaloriesNeededForGoal())
     }
+
+
+    @Test
+    fun parseExampleWeather() {
+        val exampleApiResponse = "{\n" +
+                "  \"coord\": {\"lon\": -122.08,\"lat\": 37.39},\n" +
+                "  \"weather\": [\n" +
+                "    {\n" +
+                "      \"id\": 800,\n" +
+                "      \"main\": \"Clear\",\n" +
+                "      \"description\": \"clear sky\",\n" +
+                "      \"icon\": \"01d\"\n" +
+                "    }\n" +
+                "  ],\n" +
+                "  \"base\": \"stations\",\n" +
+                "  \"main\": {\n" +
+                "    \"temp\": 281.52,\n" +
+                "    \"feels_like\": 278.99,\n" +
+                "    \"temp_min\": 280.15,\n" +
+                "    \"temp_max\": 283.71,\n" +
+                "    \"pressure\": 1016,\n" +
+                "    \"humidity\": 93\n" +
+                "  },\n" +
+                "  \"visibility\": 16093,\n" +
+                "  \"wind\": {\n" +
+                "    \"speed\": 1.5,\n" +
+                "    \"deg\": 350\n" +
+                "  },\n" +
+                "  \"clouds\": {\n" +
+                "    \"all\": 1\n" +
+                "  },\n" +
+                "  \"dt\": 1560350645,\n" +
+                "  \"sys\": {\n" +
+                "    \"type\": 1,\n" +
+                "    \"id\": 5122,\n" +
+                "    \"message\": 0.0139,\n" +
+                "    \"country\": \"US\",\n" +
+                "    \"sunrise\": 1560343627,\n" +
+                "    \"sunset\": 1560396563\n" +
+                "  },\n" +
+                "  \"timezone\": -25200,\n" +
+                "  \"id\": 420006353,\n" +
+                "  \"name\": \"Mountain View\",\n" +
+                "  \"cod\": 200\n" +
+                "}"
+        val weather = jsonTextToWeather(exampleApiResponse)
+        assertEquals(-122.08F, weather!!.coord.lon)
+        assertEquals(37.39F, weather.coord.lat)
+        assertEquals(MainWeather(temp = 281.52F,
+            feels_like = 278.99F,
+            temp_min = 280.15F,
+            temp_max = 283.71F,
+            pressure = 1016,
+            humidity = 93), weather.mainWeather)
+        assertEquals(Wind(speed = 1.5F, deg = 350F), weather.wind)
+    }
+
 }

@@ -1,14 +1,12 @@
 package com.example.lifestyleapp.activities
 
 import android.content.Intent
-import com.example.lifestyleapp.common.UserModel
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import com.example.lifestyleapp.R
 import com.example.lifestyleapp.common.*
 import com.example.lifestyleapp.fragments.MenuFragment
-import com.example.lifestyleapp.fragments.RegisterFragment
 import com.example.lifestyleapp.fragments.SummaryFragment
 import kotlinx.android.synthetic.main.activity_summary.*
 
@@ -23,7 +21,7 @@ class SummaryActivity : AppCompatActivity(), MenuFragment.DataParser {
         val calculateData = CalculateData(userModel.calculateBMI(), userModel.calculateBMR(), userModel.calculateDailyCaloriesNeededForGoal())
         val summaryFragment = SummaryFragment.newInstance(usr, calculateData)
         val fragmentTransaction = supportFragmentManager.beginTransaction()
-        if (!isTablet()){
+        if (!isTablet()) {
             menu_bt.setOnClickListener {
                 val intent = Intent(this, MenuActivity::class.java)
                 startActivity(intent)
@@ -37,7 +35,7 @@ class SummaryActivity : AppCompatActivity(), MenuFragment.DataParser {
         fragmentTransaction.commit()
     }
 
-    private fun isTablet(): Boolean{
+    private fun isTablet(): Boolean {
         return resources.getBoolean(R.bool.isTablet)
     }
 
@@ -48,7 +46,9 @@ class SummaryActivity : AppCompatActivity(), MenuFragment.DataParser {
                 val localData = LocalData(this)
                 val usr = localData.getUser() ?: fakeUser2
                 val userModel = UserModel(usr)
-                val calculateData = CalculateData(userModel.calculateBMI(), userModel.calculateBMR(), userModel.calculateDailyCaloriesNeededForGoal())
+                val calculateData = CalculateData(userModel.calculateBMI(),
+                    userModel.calculateBMR(),
+                    userModel.calculateDailyCaloriesNeededForGoal())
                 val summaryFragment = SummaryFragment.newInstance(usr, calculateData)
                 val fragmentTransaction = supportFragmentManager.beginTransaction()
                 fragmentTransaction.replace(R.id.frame_detail, summaryFragment, "summary_frag")
@@ -60,7 +60,11 @@ class SummaryActivity : AppCompatActivity(), MenuFragment.DataParser {
                 startActivity(intent)
             }
             Signals.HIKE -> TODO()
-            Signals.WEATHER -> TODO()
+            Signals.WEATHER -> {
+                Log.d(TAG_XX, "Summary Activity takes over and start weather")
+                val intent = Intent(this, WeatherActivity::class.java)
+                startActivity(intent)
+            }
             Signals.Setting -> TODO()
         }
     }

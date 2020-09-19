@@ -1,12 +1,12 @@
 package com.example.lifestyleapp
 
-import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
-
+import androidx.test.platform.app.InstrumentationRegistry
+import com.example.lifestyleapp.common.Location
+import com.example.lifestyleapp.common.getWeather
+import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
-
-import org.junit.Assert.*
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -20,5 +20,16 @@ class ExampleInstrumentedTest {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
         assertEquals("com.example.lifestyleapp", appContext.packageName)
+    }
+
+    @Test
+    fun getWeatherTest() { //relies on context
+//        val appContext = InstrumentationRegistry.getInstrumentation().targetContext
+        val location = Location(
+            city = "Ogden",
+            countryCode = "US",
+            stateCode = "UT"
+        )
+        getWeather(location)
     }
 }

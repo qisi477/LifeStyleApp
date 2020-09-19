@@ -1,8 +1,8 @@
 package com.example.lifestyleapp.activities
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.example.lifestyleapp.R
 import com.example.lifestyleapp.common.LocalData
 import com.example.lifestyleapp.common.fakeUser
