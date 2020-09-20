@@ -41,4 +41,13 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="sedentary">Sedentary</string>
+    <string name="active">Active</string>
+    <string name="weight_goal">Weight Goal:</string>
+    <string name="min_lbs">-5 lbs</string>
+    <string name="max_lbs">5 lbs</string>
+    <string name="middle_lbs">0 lbs</string>
+    <string name="finish">Finish</string>
+    <string name="current_weight">Current Weight</string>
+    <string name="current_height">Current Height</string>
 </resources>

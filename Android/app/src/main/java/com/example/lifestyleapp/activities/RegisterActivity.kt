@@ -13,7 +13,7 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(R.layout.activity_register)
         val registerFragment = RegisterFragment.newInstance("Test1", "Test2")
         val registerFragmentTransaction = supportFragmentManager.beginTransaction()
-        registerFragmentTransaction.replace(R.id.frame_layout, registerFragment, "register_frag")
+        registerFragmentTransaction.replace(R.id.frame_detail, registerFragment, "register_frag")
         registerFragmentTransaction.commit()
 
         

@@ -14,7 +14,7 @@
         app:layout_constraintGuide_percent="0.1" />
 
     <FrameLayout
-        android:id="@+id/frame_layout"
+        android:id="@+id/frame_detail"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -60,6 +60,9 @@ class MenuFragment : Fragment(), View.OnClickListener{
         super.onResume()
         summary_lv.setOnClickListener(this)
         logout_lv.setOnClickListener(this)
+        goal_lv.setOnClickListener(this)
+        weather_lv.setOnClickListener(this)
+        hikes_lv.setOnClickListener(this)
         if (firstName != "null") {
             name_tv.text = firstName
         }
@@ -79,7 +82,6 @@ class MenuFragment : Fragment(), View.OnClickListener{
          * this fragment using the provided parameters.
          *
          * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
          * @return A new instance of fragment MenuFragment.
          */
         // TODO: Rename and change types and number of parameters
@@ -101,14 +103,24 @@ class MenuFragment : Fragment(), View.OnClickListener{
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.summary_lv -> {
-                Log.d(TAG_XX, "Click summary linear view")
+                Log.d(TAG_XX, "Click summary linear layout")
                 dataParser?.dataHandler(Signals.SUMMARY) ?: return
             }
             R.id.logout_lv -> {
-                Log.d(TAG_XX, "Click logout linear view")
+                Log.d(TAG_XX, "Click logout linear layout")
                 val localData = LocalData(activity)
                 localData.deleteUser()
                 dataParser?.dataHandler(Signals.LOGOUT) ?: return
+            }
+            R.id.goal_lv -> {
+                Log.d(TAG_XX, "Click setting linear layout")
+                dataParser?.dataHandler(Signals.SETTING) ?: return
+            }
+            R.id.hikes_lv -> {
+                dataParser?.dataHandler(Signals.HIKE) ?: return
+            }
+            R.id.weather_lv -> {
+                dataParser?.dataHandler((Signals.WEATHER)) ?: return
             }
         }
     }
