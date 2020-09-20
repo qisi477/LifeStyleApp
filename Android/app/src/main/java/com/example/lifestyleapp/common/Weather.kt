@@ -1,5 +1,6 @@
 package com.example.lifestyleapp.common
 
+import android.util.Log
 import com.beust.klaxon.Json
 import com.beust.klaxon.Klaxon
 import java.io.StringReader
@@ -53,12 +54,17 @@ fun getWeather(location: Location): Weather? {
     val apiKey = "a742f92606870e1ee06b22a9502b644d"
 
     var url = "https://api.openweathermap.org/data/2.5/weather?q="
-    if (!location.city.isNullOrEmpty()) url += location.city
-    if (!location.stateCode.isNullOrEmpty()) url += ",${location.stateCode}"
-    if (!location.countryCode.isNullOrEmpty()) url += ",${location.countryCode}"
+    if (!location.city.isNullOrEmpty()) url += location.city!!.trim().replace(" ", "%20")
+    if (!location.country.isNullOrEmpty()) {
+        url += ",${
+            location.country!!.trim().replace(" ", "%20")
+        }"
+    }
     url += "&appid=$apiKey"
 
+    Log.d(TAG_WEATHER, url)
     val result = URL(url).readText()
+    Log.d(TAG_WEATHER, result)
     return jsonTextToWeather(result)
 }
 
@@ -66,5 +72,7 @@ fun jsonTextToWeather(jsonText: String): Weather? {
     if (jsonText.startsWith("ERROR: ")) {
         return null
     }
-    return Klaxon().parse<Weather>(reader = StringReader(jsonText))
+    val weather = Klaxon().parse<Weather>(reader = StringReader(jsonText))
+    Log.d(TAG_WEATHER, weather.toString())
+    return weather
 }

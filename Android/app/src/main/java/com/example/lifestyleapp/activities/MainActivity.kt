@@ -10,6 +10,7 @@ import com.example.lifestyleapp.common.*
 import com.example.lifestyleapp.fragments.MenuFragment
 import com.example.lifestyleapp.fragments.SettingFragment
 import com.example.lifestyleapp.fragments.SummaryFragment
+import com.example.lifestyleapp.fragments.WeatherFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), MenuFragment.DataParser, View.OnClickListener {
@@ -26,7 +27,11 @@ class MainActivity : AppCompatActivity(), MenuFragment.DataParser, View.OnClickL
         }
         val usr = localData.getUser() ?: fakeUser2
         val userModel = UserModel(usr)
-        val calculateData = CalculateData(userModel.calculateBMI(), userModel.calculateBMR(), userModel.calculateDailyCaloriesNeededForGoal())
+        val calculateData = CalculateData(
+            userModel.calculateBMI(),
+            userModel.calculateBMR(),
+            userModel.calculateDailyCaloriesNeededForGoal()
+        )
 
         // try to start summary and menu
         val summaryFragment = SummaryFragment.newInstance(usr, calculateData)
@@ -44,7 +49,7 @@ class MainActivity : AppCompatActivity(), MenuFragment.DataParser, View.OnClickL
     }
 
     override fun onClick(p0: View?) {
-        when(p0?.id) {
+        when (p0?.id) {
             R.id.menu_bt -> {
                 val localData = LocalData(this)
                 val usr = localData.getUser() ?: fakeUser2
@@ -66,9 +71,11 @@ class MainActivity : AppCompatActivity(), MenuFragment.DataParser, View.OnClickL
                 val localData = LocalData(this)
                 val usr = localData.getUser() ?: fakeUser2
                 val userModel = UserModel(usr)
-                val calculateData = CalculateData(userModel.calculateBMI(),
+                val calculateData = CalculateData(
+                    userModel.calculateBMI(),
                     userModel.calculateBMR(),
-                    userModel.calculateDailyCaloriesNeededForGoal())
+                    userModel.calculateDailyCaloriesNeededForGoal()
+                )
                 val summaryFragment = SummaryFragment.newInstance(usr, calculateData)
                 val fragmentTransaction = supportFragmentManager.beginTransaction()
                 fragmentTransaction.replace(R.id.frame_detail, summaryFragment, "summary_frag")
@@ -82,9 +89,12 @@ class MainActivity : AppCompatActivity(), MenuFragment.DataParser, View.OnClickL
             }
             Signals.HIKE -> TODO()
             Signals.WEATHER -> {
-                Log.d(TAG_XX, "Summary Activity takes over and start weather")
-                val intent = Intent(this, WeatherActivity::class.java)
-                startActivity(intent)
+                val localData = LocalData(this)
+                val usr = localData.getUser() ?: fakeUser2
+                val weatherFragment = WeatherFragment.newInstance(usr)
+                val fragmentTransaction = supportFragmentManager.beginTransaction()
+                fragmentTransaction.replace(R.id.frame_detail, weatherFragment, "weather_frag")
+                fragmentTransaction.commit()
             }
             Signals.SETTING -> {
                 val settingFragment = SettingFragment.newInstance("", "")

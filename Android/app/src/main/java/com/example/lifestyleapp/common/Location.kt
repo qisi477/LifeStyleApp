@@ -5,10 +5,13 @@ import com.beust.klaxon.Klaxon
 import java.io.StringReader
 import java.net.URL
 
+/**
+ * countryCode: uses ISO 3166 country codes
+ */
 data class Location(
-    var city: String?,
-    var countryCode: String?,
-    var stateCode: String?,
+    var city: String? = null,
+    var country: String? = null,
+    var stateCode: String? = null,
     var zipCode: String? = null,
     var latitude: Float? = null,
     var longitude: Float? = null,

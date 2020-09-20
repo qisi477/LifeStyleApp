@@ -79,7 +79,7 @@ class SummaryFragment : Fragment() {
         }
         if (city != "null" && country != "null") {
             val loc = "$city, $country"
-            loc_tv.text = loc
+            location_tv.text = loc
         }
         if (sex != "null") {
             if (sex == "true") {

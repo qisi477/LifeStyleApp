@@ -33,11 +33,13 @@ val fakeUser2 = UserDataModel(
     weightChangeGoalPerWeek = 0f
 )
 
-data class CalculateData (
+data class CalculateData(
     val BMI: Int?,
     val BMR: Int?,
     val daily: Int?
 )
 
 val TAG_XX = "XUEFENGX"
+val TAG_WEATHER = "WEATHER"
+val TAG_CH = "CHADHURST"
 
