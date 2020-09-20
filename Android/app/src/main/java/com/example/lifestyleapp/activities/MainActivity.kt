@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity(), MenuFragment.DataParser, View.OnClickL
         if (localData.getUser() == null) {
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
+            finish()
         }
         val usr = localData.getUser() ?: fakeUser2
         val userModel = UserModel(usr)
@@ -77,6 +78,7 @@ class MainActivity : AppCompatActivity(), MenuFragment.DataParser, View.OnClickL
                 Log.d(TAG_XX, "Summary Activity takes over and start register")
                 val intent = Intent(this, RegisterActivity::class.java)
                 startActivity(intent)
+                finish()
             }
             Signals.HIKE -> TODO()
             Signals.WEATHER -> {
