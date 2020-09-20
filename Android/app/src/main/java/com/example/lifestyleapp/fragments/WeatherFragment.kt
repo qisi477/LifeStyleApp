@@ -9,10 +9,13 @@ import androidx.fragment.app.Fragment
 import com.example.lifestyleapp.R
 import com.example.lifestyleapp.common.*
 import kotlinx.android.synthetic.main.fragment_weather.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 private const val CITY = "city"
 private const val COUNTRY = "country"
-
+//todo crashed on rotate
 /**
  * A simple [Fragment] subclass.
  * Use the [WeatherFragment.newInstance] factory method to
@@ -21,7 +24,7 @@ private const val COUNTRY = "country"
 class WeatherFragment : Fragment() {
     private var city: String? = null
     private var country: String? = null
-    private var weather: Weather? = null
+    var weather: Weather? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,8 +32,6 @@ class WeatherFragment : Fragment() {
             city = it.getString(CITY)
             country = it.getString(COUNTRY)
         }
-
-        weather = getWeather(Location(city = city, country = country))
         Log.d(TAG_WEATHER, "$city $country")
     }
 
@@ -38,18 +39,27 @@ class WeatherFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        // Inflate the layout for this fragment
         Log.d(TAG_CH, "Initialize Weather Fragment")
         return inflater.inflate(R.layout.fragment_weather, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val job = GlobalScope.launch(Dispatchers.IO) {
+            weather = suspendGetWeatherFromInternet(Location(city = city, country = country))
+            updateView()
+        }
+        job.start()
+    }
+
+    private fun updateView() {
         if (city != "null" && country != "null") {
             val loc = "$city, $country"
             location_tv.text = loc
         }
-
+        //todo add more fields
+        temperature_tv.text = weather?.mainWeather?.tempKelvin.toString()
+        feels_like_tv.text = weather?.mainWeather?.feelsLikeTempKelvin.toString()
     }
 
     companion object {

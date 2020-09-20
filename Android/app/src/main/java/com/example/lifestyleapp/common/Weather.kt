@@ -3,6 +3,8 @@ package com.example.lifestyleapp.common
 import android.util.Log
 import com.beust.klaxon.Json
 import com.beust.klaxon.Klaxon
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.io.StringReader
 import java.net.URL
 
@@ -50,7 +52,21 @@ data class Wind(
  * provided by openweathermap, Current weather and forecast: Free plan
  * Calls per minute: 60
  */
-fun getWeather(location: Location): Weather? {
+fun getWeatherFromInternet(location: Location): Weather? {
+    val url = buildURL(location)
+    Log.d(TAG_WEATHER, url)
+    val result: String = URL(url).readText()
+    Log.d(TAG_WEATHER, result)
+    return jsonTextToWeather(result)
+}
+
+suspend fun suspendGetWeatherFromInternet(location: Location): Weather? {
+    return withContext(Dispatchers.IO) {
+        getWeatherFromInternet(location)
+    }
+}
+
+private fun buildURL(location: Location): String {
     val apiKey = "a742f92606870e1ee06b22a9502b644d"
 
     var url = "https://api.openweathermap.org/data/2.5/weather?q="
@@ -61,18 +77,12 @@ fun getWeather(location: Location): Weather? {
         }"
     }
     url += "&appid=$apiKey"
-
-    Log.d(TAG_WEATHER, url)
-    val result = URL(url).readText()
-    Log.d(TAG_WEATHER, result)
-    return jsonTextToWeather(result)
+    return url
 }
 
 fun jsonTextToWeather(jsonText: String): Weather? {
     if (jsonText.startsWith("ERROR: ")) {
         return null
     }
-    val weather = Klaxon().parse<Weather>(reader = StringReader(jsonText))
-    Log.d(TAG_WEATHER, weather.toString())
-    return weather
+    return Klaxon().parse<Weather>(reader = StringReader(jsonText))
 }

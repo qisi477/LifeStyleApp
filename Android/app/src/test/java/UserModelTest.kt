@@ -135,7 +135,7 @@ class UserModelTest {
         val fakeUserModel = UserModel(fakeUser)
         assertEquals(19, fakeUserModel.calculateBMI())
         assertEquals(1561, fakeUserModel.calculateBMR())
-        assertEquals(961, fakeUserModel.calculateDailyCaloriesNeededForGoal())
+        assertEquals(1461, fakeUserModel.calculateDailyCaloriesNeededForGoal())
     }
 
 

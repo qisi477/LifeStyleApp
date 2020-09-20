@@ -22,9 +22,10 @@ class InstrumentedTest {
         assertEquals("com.example.lifestyleapp", appContext.packageName)
     }
 
+
     @Test
     fun getWeatherTest() { //relies on context
-        val weather = getWeather(
+        val weather = getWeatherFromInternet(
             Location(
                 city = "ogden",
                 country = "United States",
@@ -38,7 +39,7 @@ class InstrumentedTest {
 
     @Test
     fun getWeatherFakeUser() {
-        val weather = getWeather(
+        val weather = getWeatherFromInternet(
             Location(
                 city = fakeUser.city,
                 country = fakeUser.country
@@ -49,7 +50,7 @@ class InstrumentedTest {
 
     @Test
     fun getWeatherFakeUser2() {
-        val weather = getWeather(
+        val weather = getWeatherFromInternet(
             Location(
                 city = fakeUser2.city,
                 country = fakeUser2.country
