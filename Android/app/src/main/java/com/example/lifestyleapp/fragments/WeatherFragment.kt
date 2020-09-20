@@ -58,8 +58,8 @@ class WeatherFragment : Fragment() {
             location_tv.text = loc
         }
         //todo add more fields
-        temperature_tv.text = weather?.mainWeather?.tempKelvin.toString()
-        feels_like_tv.text = weather?.mainWeather?.feelsLikeTempKelvin.toString()
+        temperature_tv.text = weather?.mainWeather?.getTempFahrenheit().toString()
+        feels_like_tv.text = weather?.mainWeather?.getFeelsLikeTempFahrenheit().toString()
     }
 
     companion object {

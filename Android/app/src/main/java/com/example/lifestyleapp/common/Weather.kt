@@ -39,7 +39,27 @@ data class MainWeather(
     val pressure: Int, //todo get units
     @Json(name = "humidity")
     val humidity: Int, //todo get units
-)
+) {
+    fun getTempFahrenheit(): Float {
+        return kelvinToFahrenheit(tempKelvin)
+    }
+
+    fun getTempCelsius(): Float {
+        return kelvinToCelsius(tempKelvin)
+    }
+
+    fun getFeelsLikeTempFahrenheit(): Float {
+        return kelvinToFahrenheit(feelsLikeTempKelvin)
+    }
+
+    private fun kelvinToFahrenheit(kelvinTemp: Float): Float {
+        return (kelvinTemp - 273.15F) * (9F / 5F) + 32F
+    }
+
+    private fun kelvinToCelsius(kelvinTemp: Float): Float {
+        return (kelvinTemp - 273.15F)
+    }
+}
 
 data class Wind(
     @Json(name = "speed")
