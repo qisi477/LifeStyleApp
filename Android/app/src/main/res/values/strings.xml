@@ -50,4 +50,5 @@
     <string name="finish">Finish</string>
     <string name="current_weight">Current Weight</string>
     <string name="current_height">Current Height</string>
+    <string name="activity_level">Activity Level</string>
 </resources>

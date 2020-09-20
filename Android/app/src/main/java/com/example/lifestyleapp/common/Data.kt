@@ -17,7 +17,7 @@ val fakeUser = UserDataModel(
     heightInches = 70,
     weightLbs = 130,
     male = true,
-    activityLevel = "3",
+    activityLevel = "Active",
     weightChangeGoalPerWeek = -1.2f
 )
 
@@ -29,7 +29,7 @@ val fakeUser2 = UserDataModel(
     heightInches = 70,
     weightLbs = 130,
     male = true,
-    activityLevel = "3",
+    activityLevel = "Active",
     weightChangeGoalPerWeek = 0f
 )
 

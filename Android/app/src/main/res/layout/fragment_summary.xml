@@ -149,6 +149,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/tf_padding"
                 android:text="@string/daily_calories" />
+
+            <TextView
+                android:id="@+id/activity_level_label_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/tf_padding"
+                android:text="@string/activity_level" />
         </LinearLayout>
 
         <LinearLayout
@@ -203,6 +210,13 @@
 
             <TextView
                 android:id="@+id/dc_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/tf_padding"
+                android:text="@string/placeholder" />
+
+            <TextView
+                android:id="@+id/activity_level_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/tf_padding"
