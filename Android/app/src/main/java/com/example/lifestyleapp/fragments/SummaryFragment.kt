@@ -1,14 +1,12 @@
 package com.example.lifestyleapp.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.lifestyleapp.R
 import com.example.lifestyleapp.common.CalculateData
-import com.example.lifestyleapp.common.TAG_XX
 import com.example.lifestyleapp.common.UserDataModel
 import kotlinx.android.synthetic.main.fragment_summary.*
 
@@ -23,6 +21,7 @@ private const val BMI = "BMI"
 private const val BMR = "BMR"
 private const val DAILY = "daily"
 private const val GOAL = "goal"
+private const val ACTIVITY_LEVEL = "activity_level"
 
 /**
  * A simple [Fragment] subclass.
@@ -30,7 +29,7 @@ private const val GOAL = "goal"
  * create an instance of this fragment.
  */
 class SummaryFragment : Fragment() {
-    private var user_name: String? = null
+    private var userName: String? = null
     private var age: String? = null
     private var city: String? = null
     private var country: String? = null
@@ -41,11 +40,12 @@ class SummaryFragment : Fragment() {
     private var bmr: String? = null
     private var daily: String? = null
     private var goal: String? = null
+    private var activityLevel: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            user_name = it.getString(USER_NAME)
+            userName = it.getString(USER_NAME)
             age = it.getString(AGE)
             city = it.getString(CITY)
             country = it.getString(COUNTRY)
@@ -56,8 +56,9 @@ class SummaryFragment : Fragment() {
             bmr = it.getString(BMR)
             daily = it.getString(DAILY)
             goal = it.getString(GOAL)
+            activityLevel = it.getString(ACTIVITY_LEVEL)
         }
-        Log.d(TAG_XX, "$user_name $age $city $country $height $weight $sex $goal")
+        // Log.d(TAG_XX, "$user_name $age $city $country $height $weight $sex $goal")
     }
 
     override fun onCreateView(
@@ -65,45 +66,32 @@ class SummaryFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View? {
         // Inflate the layout for this fragment
-        Log.d(TAG_XX, "Initialize the fragment")
+        // Log.d(TAG_XX, "Initialize the fragment")
         return inflater.inflate(R.layout.fragment_summary, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (user_name != "null") {
-            name_tv.text = user_name
-        }
-        if (age != "null") {
-            age_tv.text = age
-        }
+        if (userName != "null") name_tv.text = userName
+        if (age != "null") age_tv.text = age
         if (city != "null" && country != "null") {
             val loc = "$city, $country"
             location_tv.text = loc
         }
         if (sex != "null") {
-            if (sex == "true") {
-                sex_tv.text = getString(R.string.male)
-            } else {
-                sex_tv.text = getString(R.string.female)
-            }
+            if (sex == "true") sex_tv.text = getString(R.string.male)
+            else sex_tv.text = getString(R.string.female)
         }
-        if (height != "null") {
-            h_tv.text = height
-        }
-        if (weight != "null") {
-            w_tv.text = weight
-        }
-        if (bmr != "null") {
-            bmr_tv.text = bmr
-        }
+        if (height != "null") h_tv.text = height
+        if (weight != "null") w_tv.text = weight
+        if (bmr != "null") bmr_tv.text = bmr
+
         if (bmi != "null") {
             val bmiConcat = "BMI: $bmi"
             bmi_tv.text = bmiConcat
         }
-        if (daily != "null") {
-            dc_tv.text = daily
-        }
+        if (daily != "null") dc_tv.text = daily
+
         if (goal != "null") {
             val weightChange = goal?.toDouble()
             if (weightChange != null) {
@@ -112,6 +100,8 @@ class SummaryFragment : Fragment() {
                 else goal_tv.text = getString(R.string.loss)
             }
         }
+
+        if (activityLevel != "null") activity_level_tv.text = activityLevel
     }
 
     companion object {
@@ -135,6 +125,7 @@ class SummaryFragment : Fragment() {
                     putString(CITY, usr.city)
                     putString(HEIGHT, usr.heightInches.toString())
                     putString(WEIGHT, usr.weightLbs.toString())
+                    putString(ACTIVITY_LEVEL, usr.activityLevel)
                     putString(BMI, calcu.BMI.toString())
                     putString(BMR, calcu.BMR.toString())
                     putString(DAILY, calcu.daily.toString())
