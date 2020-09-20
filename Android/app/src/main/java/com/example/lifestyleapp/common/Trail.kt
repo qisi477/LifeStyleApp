@@ -1,0 +1,27 @@
+package com.example.lifestyleapp.common
+
+data class Trail(
+    val id: Int?,
+    val name: String?,
+    val type: String?,
+    val summary: String?,
+    val difficulty: String?,
+    val stars: Float?,
+    val starVotes: Int?,
+    val location: String?,
+    val url: String?,
+    val imgSqSmall: String?,
+    val imgSmall: String?,
+    val imgSmallMed: String?,
+    val imgMedium: String?,
+    val length: Float?,
+    val ascent: Int?,
+    val descent: Int?,
+    val high: Int?,
+    val low: Int?,
+    val longitude: Float?,
+    val latitude: Float?,
+    val conditionStatus: String?,
+    val conditionDetails: String?,
+    val conditionDate: String?,
+)

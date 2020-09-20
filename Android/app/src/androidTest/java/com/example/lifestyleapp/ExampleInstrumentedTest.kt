@@ -3,6 +3,7 @@ package com.example.lifestyleapp
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.example.lifestyleapp.common.Location
+import com.example.lifestyleapp.common.getTrails
 import com.example.lifestyleapp.common.getWeather
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
@@ -25,7 +26,6 @@ class ExampleInstrumentedTest {
 
     @Test
     fun getWeatherTest() { //relies on context
-//        val appContext = InstrumentationRegistry.getInstrumentation().targetContext
         val location = Location(
             city = "Ogden",
             countryCode = "US",
@@ -35,5 +35,19 @@ class ExampleInstrumentedTest {
         assertNotNull(weather)
         assertEquals(41.22F, weather!!.coord.latitude)
         assertEquals(-111.97F, weather.coord.longitude)
+        getTrails(location)
+    }
+
+    @Test
+    fun getTrailsTest() {
+        val location = Location(
+            city = "Ogden",
+            countryCode = "US",
+            stateCode = "UT",
+            latitude = 41.22F,
+            longitude = -111.97F
+        )
+        val trails = getTrails(location)
+        assertNotNull(trails)
     }
 }
