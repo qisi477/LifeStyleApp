@@ -47,5 +47,5 @@ fun getTrails(
     if (resultJsonObject["success"] != 1) {
         return null
     }
-    return Klaxon().parseFromJsonArray<Trail>(map = resultJsonObject["trails"] as JsonArray<Trail>)
+    return Klaxon().parseFromJsonArray<Trail>(map = resultJsonObject["trails"] as JsonArray<*>)
 }
