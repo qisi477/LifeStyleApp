@@ -3,9 +3,6 @@ package com.example.lifestyleapp.common
 import android.util.Log
 import com.beust.klaxon.Json
 import com.beust.klaxon.Klaxon
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import java.io.StringReader
 import java.net.URL
 
@@ -75,7 +72,7 @@ data class Wind(
 
 /**
  * provided by openweathermap, Current weather and forecast: Free plan
- * Calls per minute: 60
+ * Allowed Calls per minute: 60
  */
 fun getWeather(location: Location): Weather? {
     val url = buildURL(location)
@@ -85,25 +82,6 @@ fun getWeather(location: Location): Weather? {
     return jsonTextToWeather(result)
 }
 
-class HeavyWorker(private val dispatchers: DispatcherProvider = DefaultDispatcherProvider()) {
-    suspend fun suspendGetWeather(location: Location): Weather? {
-        return withContext(dispatchers.io()) {
-            getWeather(location)
-        }
-    }
-}
-
-
-interface DispatcherProvider {
-
-    fun main(): CoroutineDispatcher = Dispatchers.Main
-    fun default(): CoroutineDispatcher = Dispatchers.Default
-    fun io(): CoroutineDispatcher = Dispatchers.IO
-    fun unconfined(): CoroutineDispatcher = Dispatchers.Unconfined
-
-}
-
-class DefaultDispatcherProvider : DispatcherProvider
 
 /*
 docs https://openweathermap.org/current
