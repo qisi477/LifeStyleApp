@@ -44,9 +44,10 @@ class WeatherFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        //todo crashes on rotate, put in ViewModel
         super.onViewCreated(view, savedInstanceState)
         val job = GlobalScope.launch(Dispatchers.IO) {
-            weather = suspendGetWeatherFromInternet(Location(city = city, country = country))
+            weather = suspendGetWeather(Location(city = city, country = country))
             updateView()
         }
         job.start()

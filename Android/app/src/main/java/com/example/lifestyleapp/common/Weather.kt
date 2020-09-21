@@ -52,6 +52,10 @@ data class MainWeather(
         return kelvinToFahrenheit(feelsLikeTempKelvin)
     }
 
+    fun getFeelsLikeTempCelsius(): Float {
+        return kelvinToCelsius(feelsLikeTempKelvin)
+    }
+
     private fun kelvinToFahrenheit(kelvinTemp: Float): Float {
         return (kelvinTemp - 273.15F) * (9F / 5F) + 32F
     }
@@ -72,7 +76,7 @@ data class Wind(
  * provided by openweathermap, Current weather and forecast: Free plan
  * Calls per minute: 60
  */
-fun getWeatherFromInternet(location: Location): Weather? {
+fun getWeather(location: Location): Weather? {
     val url = buildURL(location)
     Log.d(TAG_WEATHER, url)
     val result: String = URL(url).readText()
@@ -80,15 +84,18 @@ fun getWeatherFromInternet(location: Location): Weather? {
     return jsonTextToWeather(result)
 }
 
-suspend fun suspendGetWeatherFromInternet(location: Location): Weather? {
+suspend fun suspendGetWeather(location: Location): Weather? {
     return withContext(Dispatchers.IO) {
-        getWeatherFromInternet(location)
+        getWeather(location)
     }
 }
 
+/*
+docs https://openweathermap.org/current
+example query
+https://api.openweathermap.org/data/2.5/weather?q=Ogden,ut,usa&appid=a742f92606870e1ee06b22a9502b644d
+ */
 private fun buildURL(location: Location): String {
-    val apiKey = "a742f92606870e1ee06b22a9502b644d"
-
     var url = "https://api.openweathermap.org/data/2.5/weather?q="
     if (!location.city.isNullOrEmpty()) url += location.city!!.trim().replace(" ", "%20")
     if (!location.country.isNullOrEmpty()) {
@@ -96,6 +103,7 @@ private fun buildURL(location: Location): String {
             location.country!!.trim().replace(" ", "%20")
         }"
     }
+    val apiKey = "a742f92606870e1ee06b22a9502b644d"
     url += "&appid=$apiKey"
     return url
 }

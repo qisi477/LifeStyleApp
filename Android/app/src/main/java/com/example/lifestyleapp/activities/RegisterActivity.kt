@@ -1,8 +1,8 @@
 package com.example.lifestyleapp.activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import com.example.lifestyleapp.R
 import com.example.lifestyleapp.fragments.RegisterFragment
 
@@ -16,6 +16,6 @@ class RegisterActivity : AppCompatActivity() {
         registerFragmentTransaction.replace(R.id.frame_detail, registerFragment, "register_frag")
         registerFragmentTransaction.commit()
 
-        
+
     }
 }

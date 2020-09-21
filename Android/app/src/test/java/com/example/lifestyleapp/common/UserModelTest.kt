@@ -1,4 +1,5 @@
-import com.example.lifestyleapp.common.*
+package com.example.lifestyleapp.common
+
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
@@ -197,5 +198,6 @@ class UserModelTest {
         )
         assertEquals(Wind(speed = 1.5F, degreesDirection = 350F), weather.wind)
     }
+
 
 }
