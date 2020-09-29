@@ -12,6 +12,7 @@ import kotlinx.android.synthetic.main.fragment_weather.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlin.math.roundToInt
 
 private const val CITY = "city"
 private const val COUNTRY = "country"
@@ -59,8 +60,10 @@ class WeatherFragment : Fragment() {
             location_tv.text = loc
         }
         //todo add more fields
-        temperature_tv.text = weather?.mainWeather?.getTempFahrenheit().toString()
-        feels_like_tv.text = weather?.mainWeather?.getFeelsLikeTempFahrenheit().toString()
+        temperature_tv.text = weather?.mainWeather?.getTempFahrenheit()?.roundToInt().toString()
+        feels_like_tv.text =
+            weather?.mainWeather?.getFeelsLikeTempFahrenheit()?.roundToInt().toString()
+
     }
 
     companion object {

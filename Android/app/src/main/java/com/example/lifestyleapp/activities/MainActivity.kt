@@ -89,6 +89,7 @@ class MainActivity : AppCompatActivity(), MenuFragment.DataParser, SettingFragme
                 finish()
             }
             Signals.WEATHER -> {
+                //todo crashes on rotate
                 val localData = LocalData(this)
                 val usr = localData.getUser() ?: fakeUser2
                 val weatherFragment = WeatherFragment.newInstance(usr)

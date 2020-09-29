@@ -38,6 +38,7 @@ data class MainWeather(
     @Json(name = "humidity")
     val humidity: Int, //todo get units
 ) {
+    //todo better way to get conversions
     fun getTempFahrenheit(): Float {
         return kelvinToFahrenheit(tempKelvin)
     }
