@@ -5,7 +5,7 @@ enum class Signals {
     LOGOUT,
     HIKE,
     WEATHER,
-    Setting
+    SETTING
 }
 
 
@@ -17,7 +17,7 @@ val fakeUser = UserDataModel(
     heightInches = 70,
     weightLbs = 130,
     male = true,
-    activityLevel = "3",
+    activityLevel = "Active",
     weightChangeGoalPerWeek = -1.2f
 )
 
@@ -29,15 +29,17 @@ val fakeUser2 = UserDataModel(
     heightInches = 70,
     weightLbs = 130,
     male = true,
-    activityLevel = "3",
-    weightChangeGoalPerWeek = -1.2f
+    activityLevel = "Active",
+    weightChangeGoalPerWeek = 0f
 )
 
-data class CalculateData (
+data class CalculateData(
     val BMI: Int?,
     val BMR: Int?,
     val daily: Int?
 )
 
 val TAG_XX = "XUEFENGX"
+val TAG_WEATHER = "WEATHER"
+val TAG_CH = "CHADHURST"
 

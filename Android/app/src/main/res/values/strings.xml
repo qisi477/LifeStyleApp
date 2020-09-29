@@ -32,4 +32,25 @@
     <string name="hikes">Hikes</string>
     <string name="weather">Weather</string>
     <string name="logout">Log Out</string>
+    <string name="title_activity_weather">Weather</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="sedentary">Sedentary</string>
+    <string name="active">Active</string>
+    <string name="weight_goal">Weight Goal:</string>
+    <string name="min_lbs">-5 lbs</string>
+    <string name="max_lbs">5 lbs</string>
+    <string name="middle_lbs">0 lbs</string>
+    <string name="finish">Finish</string>
+    <string name="current_weight">Current Weight</string>
+    <string name="current_height">Current Height</string>
+    <string name="temp">Temp</string>
+    <string name="activity_level">Activity Level</string>
+    <string name="salt_lake_city">Salt Lake City</string>
+    <string name="feels_like">feels like</string>
 </resources>

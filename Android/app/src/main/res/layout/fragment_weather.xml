@@ -5,7 +5,7 @@
     android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.SummaryFragment">
+    tools:context=".fragments.WeatherFragment">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
@@ -52,13 +52,13 @@
         app:layout_constraintGuide_percent="0.1" />
 
     <TextView
-        android:id="@+id/summary_title_tv"
+        android:id="@+id/weather_lv"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:fontFamily="@font/oswald"
-        android:text="@string/summary_title"
+        android:text="@string/weather"
         android:textColor="@color/design_default_color_on_secondary"
         android:textSize="36sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
@@ -72,13 +72,13 @@
         android:layout_height="56dp"
         android:layout_marginEnd="32dp"
         android:contentDescription="@string/avatar"
-        android:foreground="@drawable/ic_baseline_people_24"
+        android:foreground="@drawable/ic_baseline_cloud_24"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toTopOf="@+id/guideline4"
-        tools:src="@drawable/ic_baseline_people_24" />
+        tools:src="@drawable/ic_baseline_cloud_24" />
 
     <LinearLayout
         android:id="@+id/data_linear_layout"
@@ -101,61 +101,14 @@
             android:divider="@drawable/linear_divider"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/age_label_et"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/tf_padding"
-                android:text="@string/age" />
 
             <TextView
-                android:id="@+id/loc_label_et"
+                android:id="@+id/feels_like"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/tf_padding"
-                android:text="@string/location" />
+                android:text="@string/feels_like" />
 
-            <TextView
-                android:id="@+id/sex_label_et"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/tf_padding"
-                android:text="@string/sex" />
-
-            <TextView
-                android:id="@+id/height_label_et"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/tf_padding"
-                android:text="@string/height" />
-
-            <TextView
-                android:id="@+id/weight_label_et"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/tf_padding"
-                android:text="@string/weight" />
-
-            <TextView
-                android:id="@+id/bmr_label_et"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/tf_padding"
-                android:text="@string/bmr" />
-
-            <TextView
-                android:id="@+id/calories_label_tv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/tf_padding"
-                android:text="@string/daily_calories" />
-
-            <TextView
-                android:id="@+id/activity_level_label_tv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/tf_padding"
-                android:text="@string/activity_level" />
         </LinearLayout>
 
         <LinearLayout
@@ -166,61 +119,14 @@
             android:divider="@drawable/linear_divider"
             android:orientation="vertical">
 
+
             <TextView
-                android:id="@+id/age_tv"
+                android:id="@+id/feels_like_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/tf_padding"
                 android:text="@string/placeholder" />
 
-            <TextView
-                android:id="@+id/location_tv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/tf_padding"
-                android:text="@string/placeholder" />
-
-            <TextView
-                android:id="@+id/sex_tv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/tf_padding"
-                android:text="@string/placeholder" />
-
-            <TextView
-                android:id="@+id/h_tv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/tf_padding"
-                android:text="@string/placeholder" />
-
-            <TextView
-                android:id="@+id/w_tv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/tf_padding"
-                android:text="@string/placeholder" />
-
-            <TextView
-                android:id="@+id/bmr_tv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/tf_padding"
-                android:text="@string/placeholder" />
-
-            <TextView
-                android:id="@+id/dc_tv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/tf_padding"
-                android:text="@string/placeholder" />
-
-            <TextView
-                android:id="@+id/activity_level_tv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/tf_padding"
-                android:text="@string/placeholder" />
         </LinearLayout>
     </LinearLayout>
 
@@ -237,20 +143,13 @@
         app:layout_constraintTop_toTopOf="@+id/guideline5">
 
         <TextView
-            android:id="@+id/goal_tv"
+            android:id="@+id/location_tv"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
-            android:text="@string/maintain"
+            android:text="@string/placeholder"
             android:textColor="@color/colorPrimary" />
 
-        <TextView
-            android:id="@+id/bmi_tv"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="@string/bmi"
-            android:textColor="@color/colorAccent" />
     </LinearLayout>
 
     <View
@@ -263,7 +162,7 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline6" />
 
     <TextView
-        android:id="@+id/name_tv"
+        android:id="@+id/temperature_tv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
