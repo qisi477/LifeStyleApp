@@ -57,11 +57,11 @@ class WeatherFragment : Fragment() {
     private fun updateView() {
         if (city != "null" && country != "null") {
             val loc = "$city, $country"
-            location_tv.text = loc
+            location_tv?.text = loc
         }
         //todo add more fields
-        temperature_tv.text = weather?.mainWeather?.getTempFahrenheit()?.roundToInt().toString()
-        feels_like_tv.text =
+        temperature_tv?.text = weather?.mainWeather?.getTempFahrenheit()?.roundToInt().toString()
+        feels_like_tv?.text =
             weather?.mainWeather?.getFeelsLikeTempFahrenheit()?.roundToInt().toString()
 
     }
