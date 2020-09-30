@@ -1,14 +1,22 @@
 package com.example.lifestyleapp.fragments
 
+import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.lifestyleapp.R
 import com.example.lifestyleapp.common.CalculateData
+import com.example.lifestyleapp.common.TAG_XX
 import com.example.lifestyleapp.common.UserDataModel
+import kotlinx.android.synthetic.main.fragment_menu.*
 import kotlinx.android.synthetic.main.fragment_summary.*
+import kotlinx.android.synthetic.main.fragment_summary.goal_tv
+import kotlinx.android.synthetic.main.fragment_summary.name_tv
+import java.lang.Exception
+
 
 private const val USER_NAME = "first_name"
 private const val AGE = "age"
@@ -22,6 +30,7 @@ private const val BMR = "BMR"
 private const val DAILY = "daily"
 private const val GOAL = "goal"
 private const val ACTIVITY_LEVEL = "activity_level"
+private const val IMAGE = "image"
 
 /**
  * A simple [Fragment] subclass.
@@ -41,6 +50,7 @@ class SummaryFragment : Fragment() {
     private var daily: String? = null
     private var goal: String? = null
     private var activityLevel: String? = null
+    private var imgPath: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,6 +67,7 @@ class SummaryFragment : Fragment() {
             daily = it.getString(DAILY)
             goal = it.getString(GOAL)
             activityLevel = it.getString(ACTIVITY_LEVEL)
+            imgPath = it.getString(IMAGE)
         }
         // Log.d(TAG_XX, "$user_name $age $city $country $height $weight $sex $goal")
     }
@@ -101,6 +112,17 @@ class SummaryFragment : Fragment() {
             }
         }
 
+        if (imgPath != null && imgPath != "null") {
+            // Log.d(TAG_XX, imgPath!!)
+            try {
+                val thumbnailImage = BitmapFactory.decodeFile(imgPath)
+                thumb_iv.setImageBitmap(thumbnailImage)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+
+        }
+
         if (activityLevel != "null") activity_level_tv.text = activityLevel
     }
 
@@ -130,6 +152,7 @@ class SummaryFragment : Fragment() {
                     putString(BMR, calcu.BMR.toString())
                     putString(DAILY, calcu.daily.toString())
                     putString(GOAL, usr.weightChangeGoalPerWeek.toString())
+                    putString(IMAGE, usr.profilePicturePath)
                 }
             }
     }

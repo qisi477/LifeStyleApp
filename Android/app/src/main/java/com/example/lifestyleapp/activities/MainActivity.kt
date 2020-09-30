@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity(), MenuFragment.DataParser, SettingFragme
             startActivity(intent)
             finish()
         }
-        menu_bt.setOnClickListener(this)
+        menu_bt?.setOnClickListener(this)
         // split behavior according to device type
         if (isTablet()) {
             val fragmentTransaction = supportFragmentManager.beginTransaction()
@@ -77,7 +77,6 @@ class MainActivity : AppCompatActivity(), MenuFragment.DataParser, SettingFragme
                 finish()
             }
             Signals.WEATHER -> {
-                //todo crashes on rotate
                 currentSignals = Signals.WEATHER
                 val localData = LocalData(this)
                 val usr = localData.getUser() ?: fakeUser2
@@ -115,10 +114,10 @@ class MainActivity : AppCompatActivity(), MenuFragment.DataParser, SettingFragme
         goal: String,
         activityLevel: String
     ) {
-        Log.d(
-            TAG_XX,
-            "Changed: height($height) weight($weight) goal($goal) active($activityLevel)"
-        )
+//        Log.d(
+//            TAG_XX,
+//            "Changed: height($height) weight($weight) goal($goal) active($activityLevel)"
+//        )
         val localData = LocalData(this)
         val usr = localData.getUser() ?: fakeUser2
         if (height != "") usr.heightInches = height.toInt()
