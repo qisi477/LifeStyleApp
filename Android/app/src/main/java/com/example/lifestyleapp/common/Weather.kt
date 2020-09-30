@@ -47,6 +47,9 @@ data class MainWeather(
 
     fun getFeelsLikeTempCelsius(): Float = kelvinToCelsius(feelsLikeTempKelvin)
 
+    fun getTempMinFahrenheit(): Float = kelvinToFahrenheit(tempMinKelvin)
+    fun getTempMaxFahrenheit(): Float = kelvinToFahrenheit(tempMaxKelvin)
+
     private fun kelvinToFahrenheit(kelvinTemp: Float): Float =
         (kelvinTemp - 273.15F) * (9F / 5F) + 32F
 
@@ -66,9 +69,8 @@ data class Wind(
  */
 fun getWeather(location: Location): Weather? {
     val url = buildURL(location)
-    Log.d(TAG_WEATHER, url)
     val result: String = URL(url).readText()
-    Log.d(TAG_WEATHER, result)
+    Log.d(TAG_WEATHER, url + result)
     return jsonTextToWeather(result)
 }
 

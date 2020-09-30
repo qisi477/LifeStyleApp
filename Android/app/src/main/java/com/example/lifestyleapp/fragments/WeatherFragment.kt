@@ -63,6 +63,8 @@ class WeatherFragment : Fragment() {
         temperature_tv?.text = weather?.mainWeather?.getTempFahrenheit()?.roundToInt().toString()
         feels_like_tv?.text =
             weather?.mainWeather?.getFeelsLikeTempFahrenheit()?.roundToInt().toString()
+        temp_min_tv?.text = weather?.mainWeather?.getTempMinFahrenheit()?.roundToInt().toString()
+        temp_max_tv?.text = weather?.mainWeather?.getTempMaxFahrenheit()?.roundToInt().toString()
 
     }
 
