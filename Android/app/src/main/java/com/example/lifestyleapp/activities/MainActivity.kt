@@ -8,10 +8,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.lifestyleapp.R
 import com.example.lifestyleapp.common.*
-import com.example.lifestyleapp.fragments.MenuFragment
-import com.example.lifestyleapp.fragments.SettingFragment
-import com.example.lifestyleapp.fragments.SummaryFragment
-import com.example.lifestyleapp.fragments.WeatherFragment
+import com.example.lifestyleapp.fragments.*
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), MenuFragment.DataParser, SettingFragment.SettingData,
@@ -22,7 +19,7 @@ class MainActivity : AppCompatActivity(), MenuFragment.DataParser, SettingFragme
         setContentView(R.layout.activity_main)
         // load user info
         val localData = LocalData(this)
-        localData.saveUser(fakeUser)
+//        localData.saveUser(fakeUser)
         if (localData.getUser() == null) {
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
