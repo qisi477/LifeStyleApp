@@ -115,7 +115,7 @@ class RegisterActivity : AppCompatActivity(),  View.OnClickListener {
             age = age_label_et.text.toString().toInt(),
             city = city_label_et.text.toString(),
             country = country_label_et.text.toString(),
-            male = (sex_label_et.text.toString() == "male"),
+            male = (sex_label_et.text.toString() == "Male"),
             heightInches = h_label_et.text.toString().toInt(),
             weightLbs = w_label_et.text.toString().toInt(),
             profilePicturePath = currentPhotoPath

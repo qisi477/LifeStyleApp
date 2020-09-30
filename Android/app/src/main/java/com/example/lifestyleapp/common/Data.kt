@@ -8,6 +8,7 @@ enum class Signals {
     SETTING
 }
 
+var currentSignals: Signals = Signals.SUMMARY
 
 val fakeUser = UserDataModel(
     userName = "Varun",

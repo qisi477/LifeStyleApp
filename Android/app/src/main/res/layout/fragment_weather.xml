@@ -109,6 +109,20 @@
                 android:layout_marginTop="@dimen/tf_padding"
                 android:text="@string/feels_like" />
 
+            <TextView
+                android:id="@+id/temp_min"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/tf_padding"
+                android:text="@string/temp_min" />
+
+            <TextView
+                android:id="@+id/temp_max"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/tf_padding"
+                android:text="@string/temp_max" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -122,6 +136,20 @@
 
             <TextView
                 android:id="@+id/feels_like_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/tf_padding"
+                android:text="@string/placeholder" />
+
+            <TextView
+                android:id="@+id/temp_min_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/tf_padding"
+                android:text="@string/placeholder" />
+
+            <TextView
+                android:id="@+id/temp_max_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/tf_padding"

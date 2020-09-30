@@ -40,7 +40,7 @@ class UserModelTest {
         assertEquals(60, userDataModelFooBar.heightInches)
         assertEquals(130, userDataModelFooBar.weightLbs)
         assertEquals(true, userDataModelFooBar.male)
-        assertNull(userDataModelFooBar.profilePicture)
+        assertNull(userDataModelFooBar.profilePicturePath)
         assertNull(userDataModelFooBar.activityLevel)
     }
 
@@ -54,7 +54,7 @@ class UserModelTest {
         assertNull(userDataModelNameOnly.country)
         assertNull(userDataModelNameOnly.heightInches)
         assertNull(userDataModelNameOnly.weightLbs)
-        assertNull(userDataModelNameOnly.profilePicture)
+        assertNull(userDataModelNameOnly.profilePicturePath)
     }
 
     @Test
@@ -192,11 +192,11 @@ class UserModelTest {
                 feelsLikeTempKelvin = 278.99F,
                 tempMinKelvin = 280.15F,
                 tempMaxKelvin = 283.71F,
-                pressure = 1016,
-                humidity = 93
+                atmosphericPressure = 1016,
+                humidityPercent = 93
             ), weather.mainWeather
         )
-        assertEquals(Wind(speed = 1.5F, degreesDirection = 350F), weather.wind)
+        assertEquals(Wind(speedMetersPerSecond = 1.5F, degreesDirection = 350F), weather.wind)
     }
 
 

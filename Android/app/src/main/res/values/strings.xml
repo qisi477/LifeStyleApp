@@ -53,4 +53,6 @@
     <string name="activity_level">Activity Level</string>
     <string name="salt_lake_city">Salt Lake City</string>
     <string name="feels_like">feels like</string>
+    <string name="temp_min">temp min</string>
+    <string name="temp_max">temp max</string>
 </resources>

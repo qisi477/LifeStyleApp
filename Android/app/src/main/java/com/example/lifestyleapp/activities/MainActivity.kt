@@ -13,6 +13,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), MenuFragment.DataParser, SettingFragment.SettingData,
     View.OnClickListener {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -24,27 +25,15 @@ class MainActivity : AppCompatActivity(), MenuFragment.DataParser, SettingFragme
             startActivity(intent)
             finish()
         }
-        val usr = localData.getUser() ?: fakeUser2
-        val userModel = UserModel(usr)
-        val calculateData = CalculateData(
-            userModel.calculateBMI(),
-            userModel.calculateBMR(),
-            userModel.calculateDailyCaloriesNeededForGoal()
-        )
-
-        // try to start summary and menu
-        val summaryFragment = SummaryFragment.newInstance(usr, calculateData)
-        val menuFragment = MenuFragment.newInstance(usr)
-        val fragmentTransaction = supportFragmentManager.beginTransaction()
-
+        menu_bt?.setOnClickListener(this)
         // split behavior according to device type
-        if (!isTablet()) {
-            menu_bt?.setOnClickListener(this)
-        } else {
-            fragmentTransaction.replace(R.id.frame_master, menuFragment, "menu_frag")
+        if (isTablet()) {
+            val fragmentTransaction = supportFragmentManager.beginTransaction()
+            val usr = localData.getUser() ?: fakeUser2
+            fragmentTransaction.replace(R.id.frame_master, MenuFragment.newInstance(usr), "menu_frag")
+            fragmentTransaction.commit()
         }
-        fragmentTransaction.replace(R.id.frame_detail, summaryFragment, "summary_frag")
-        fragmentTransaction.commit()
+        dataHandler(currentSignals)
     }
 
     override fun onClick(p0: View?) {
@@ -67,6 +56,7 @@ class MainActivity : AppCompatActivity(), MenuFragment.DataParser, SettingFragme
     override fun dataHandler(command: Signals) {
         when (command) {
             Signals.SUMMARY -> {
+                currentSignals = Signals.SUMMARY
                 val localData = LocalData(this)
                 val usr = localData.getUser() ?: fakeUser2
                 val userModel = UserModel(usr)
@@ -81,11 +71,13 @@ class MainActivity : AppCompatActivity(), MenuFragment.DataParser, SettingFragme
                 fragmentTransaction.commit()
             }
             Signals.LOGOUT -> {
+                currentSignals = Signals.SUMMARY
                 val intent = Intent(this, RegisterActivity::class.java)
                 startActivity(intent)
                 finish()
             }
             Signals.WEATHER -> {
+                currentSignals = Signals.WEATHER
                 val localData = LocalData(this)
                 val usr = localData.getUser() ?: fakeUser2
                 val weatherFragment = WeatherFragment.newInstance(usr)
@@ -94,6 +86,7 @@ class MainActivity : AppCompatActivity(), MenuFragment.DataParser, SettingFragme
                 fragmentTransaction.commit()
             }
             Signals.HIKE -> {
+                currentSignals = Signals.SUMMARY
                 val localData = LocalData(this)
                 val usr = localData.getUser() ?: fakeUser2
                 val city = usr.city ?: "me"
@@ -104,6 +97,7 @@ class MainActivity : AppCompatActivity(), MenuFragment.DataParser, SettingFragme
                 startActivity(mapIntent)
             }
             Signals.SETTING -> {
+                currentSignals = Signals.SETTING
                 val localData = LocalData(this)
                 val usr = localData.getUser() ?: fakeUser2
                 val settingFragment = SettingFragment.newInstance(usr)
@@ -120,10 +114,10 @@ class MainActivity : AppCompatActivity(), MenuFragment.DataParser, SettingFragme
         goal: String,
         activityLevel: String
     ) {
-        Log.d(
-            TAG_XX,
-            "Changed: height($height) weight($weight) goal($goal) active($activityLevel)"
-        )
+//        Log.d(
+//            TAG_XX,
+//            "Changed: height($height) weight($weight) goal($goal) active($activityLevel)"
+//        )
         val localData = LocalData(this)
         val usr = localData.getUser() ?: fakeUser2
         if (height != "") usr.heightInches = height.toInt()
@@ -136,6 +130,7 @@ class MainActivity : AppCompatActivity(), MenuFragment.DataParser, SettingFragme
             userModel.calculateBMR(),
             userModel.calculateDailyCaloriesNeededForGoal()
         )
+        localData.saveUser(usr)
         val summaryFragment = SummaryFragment.newInstance(usr, calculateData)
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.frame_detail, summaryFragment, "summary_frag")

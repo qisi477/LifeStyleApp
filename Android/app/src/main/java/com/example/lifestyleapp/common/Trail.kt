@@ -2,6 +2,7 @@ package com.example.lifestyleapp.common
 
 import com.beust.klaxon.Json
 
+//todo not used
 data class Trail(
     @Json(name = "id")
     val id: Int?,
