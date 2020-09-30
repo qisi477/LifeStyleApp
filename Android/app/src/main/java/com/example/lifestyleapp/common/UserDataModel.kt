@@ -10,7 +10,7 @@ data class UserDataModel(
     var heightInches: Int? = null,
     var weightLbs: Int? = null,
     var male: Boolean? = null,
-    var profilePicture: Picture? = null,
+    var profilePicturePath: String? = null,
     var activityLevel: String? = null,
     var weightChangeGoalPerWeek: Float? = null,
 )
