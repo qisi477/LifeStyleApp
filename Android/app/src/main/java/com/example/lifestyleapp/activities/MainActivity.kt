@@ -134,6 +134,7 @@ class MainActivity : AppCompatActivity(), MenuFragment.DataParser, SettingFragme
             userModel.calculateBMR(),
             userModel.calculateDailyCaloriesNeededForGoal()
         )
+        localData.saveUser(usr)
         val summaryFragment = SummaryFragment.newInstance(usr, calculateData)
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.frame_detail, summaryFragment, "summary_frag")
