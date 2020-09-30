@@ -19,8 +19,9 @@ import java.io.FileOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
 
-class RegisterActivity : AppCompatActivity(),  View.OnClickListener {
+class RegisterActivity : AppCompatActivity(), View.OnClickListener {
     val REQUEST_IMAGE_CAPTURE = 1
+
     //val REQUEST_CODE = 100
     lateinit var currentPhotoPath: String
 
@@ -58,7 +59,7 @@ class RegisterActivity : AppCompatActivity(),  View.OnClickListener {
 
     private fun dispatchTakePictureIntent() {
         val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        if(takePictureIntent.resolveActivity(packageManager) != null)
+        if (takePictureIntent.resolveActivity(packageManager) != null)
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
     }
 
@@ -102,9 +103,9 @@ class RegisterActivity : AppCompatActivity(),  View.OnClickListener {
         return file.absolutePath
     }
 
-    private fun isExternalStorageWritable(): Boolean{
+    private fun isExternalStorageWritable(): Boolean {
         val state = Environment.getExternalStorageState()
-        if(Environment.MEDIA_MOUNTED.equals(state))
+        if (Environment.MEDIA_MOUNTED.equals(state))
             return true
         return false
     }
@@ -124,36 +125,36 @@ class RegisterActivity : AppCompatActivity(),  View.OnClickListener {
     }
 
     fun checkInput(user: UserDataModel?): Boolean {
-        if(user?.userName == null || user?.userName == ""){
-            name_label_et.setError("User name is required.")
+        if (user?.userName == null || user.userName == "") {
+            name_label_et.error = "User name is required."
             return false
         }
-        if(user?.age == null){
-            age_label_et.setError("Age is required")
+        if (user.age == null) {
+            age_label_et.error = "Age is required"
             return false
         }
-        if(user?.city == null || user?.city == ""){
-            city_label_et.setError("City is required.")
+        if (user.city == null || user.city == "") {
+            city_label_et.error = "City is required."
             return false
         }
-        if(user?.country == null || user?.country == ""){
-            country_label_et.setError("Country is required")
+        if (user.country == null || user.country == "") {
+            country_label_et.error = "Country is required"
             return false
         }
-        if(user?.male == null){
-            name_label_et.setError("Sex is required")
+        if (user.male == null) {
+            name_label_et.error = "Sex is required"
             return false
         }
-        if(user?.weightLbs == null){
-            w_label_et.setError("Weight is required")
+        if (user.weightLbs == null) {
+            w_label_et.error = "Weight is required"
             return false
         }
-        if(user?.heightInches == null){
-            h_label_et.setError("Height is required")
+        if (user.heightInches == null) {
+            h_label_et.error = "Height is required"
             return false
         }
-        if(user?.profilePicturePath == null){
-            h_label_et.setError("Please take a picture as your profile picture.")
+        if (user.profilePicturePath == null) {
+            h_label_et.error = "Please take a picture as your profile picture."
             return false
         }
         return true
@@ -164,7 +165,6 @@ class RegisterActivity : AppCompatActivity(),  View.OnClickListener {
 //        intent.type = "image/*"
 //        startActivityForResult(intent, REQUEST_CODE)
 //    }
-
 
 
 }
