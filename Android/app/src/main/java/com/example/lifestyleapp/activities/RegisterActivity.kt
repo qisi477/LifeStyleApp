@@ -20,8 +20,9 @@ import java.io.FileOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
 
-class RegisterActivity : AppCompatActivity(),  View.OnClickListener {
+class RegisterActivity : AppCompatActivity(), View.OnClickListener {
     val REQUEST_IMAGE_CAPTURE = 1
+
     //val REQUEST_CODE = 100
     var currentPhotoPath: String? = null
 
@@ -59,7 +60,7 @@ class RegisterActivity : AppCompatActivity(),  View.OnClickListener {
 
     private fun dispatchTakePictureIntent() {
         val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        if(takePictureIntent.resolveActivity(packageManager) != null)
+        if (takePictureIntent.resolveActivity(packageManager) != null)
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
     }
 
@@ -103,9 +104,9 @@ class RegisterActivity : AppCompatActivity(),  View.OnClickListener {
         return file.absolutePath
     }
 
-    private fun isExternalStorageWritable(): Boolean{
+    private fun isExternalStorageWritable(): Boolean {
         val state = Environment.getExternalStorageState()
-        if(Environment.MEDIA_MOUNTED.equals(state))
+        if (Environment.MEDIA_MOUNTED.equals(state))
             return true
         return false
     }
@@ -116,17 +117,14 @@ class RegisterActivity : AppCompatActivity(),  View.OnClickListener {
             age = age_label_et.text.toString().toInt(),
             city = city_label_et.text.toString(),
             country = country_label_et.text.toString(),
-<<<<<<< HEAD
             male = (sex_label_et.text.toString().toLowerCase() == "male"),
-=======
-            male = (sex_label_et.text.toString() == "Male"),
->>>>>>> a80bfd85915840cb25e1c193d97162f710f40a55
             heightInches = h_label_et.text.toString().toInt(),
             weightLbs = w_label_et.text.toString().toInt(),
             profilePicturePath = currentPhotoPath
         )
         return user
     }
+  
     fun checkInputData(): Boolean {
         if(name_label_et.text.toString() == null || name_label_et.text.toString() == ""){
             Toast.makeText(this, "User Name is required.", Toast.LENGTH_SHORT).show()
@@ -164,7 +162,7 @@ class RegisterActivity : AppCompatActivity(),  View.OnClickListener {
             Toast.makeText(this, "Please take a photo.", Toast.LENGTH_SHORT).show()
             return false
         }
-        return true
+      return true
     }
 
 //    fun checkInput(user: UserDataModel?): Boolean {
@@ -208,7 +206,6 @@ class RegisterActivity : AppCompatActivity(),  View.OnClickListener {
 //        intent.type = "image/*"
 //        startActivityForResult(intent, REQUEST_CODE)
 //    }
-
 
 
 }
