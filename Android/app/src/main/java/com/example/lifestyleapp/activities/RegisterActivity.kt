@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.lifestyleapp.R
 import com.example.lifestyleapp.common.LocalData
+import com.example.lifestyleapp.common.TAG_XX
 import com.example.lifestyleapp.common.UserDataModel
 import kotlinx.android.synthetic.main.activity_register.*
 import java.io.File
@@ -22,7 +23,7 @@ import java.util.*
 class RegisterActivity : AppCompatActivity(),  View.OnClickListener {
     val REQUEST_IMAGE_CAPTURE = 1
     //val REQUEST_CODE = 100
-    lateinit var currentPhotoPath: String
+    var currentPhotoPath: String? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,18 +38,18 @@ class RegisterActivity : AppCompatActivity(),  View.OnClickListener {
 
     override fun onClick(p0: View?) {
         when (p0?.id) {
+            R.id.takePicture_label_bt -> {
+                dispatchTakePictureIntent()
+            }
             R.id.register_label_bt -> {
-                val user = readInput()
                 // check input
-                if (checkInput(user)) {
+                if (checkInputData()) {
+                    val user = readInput()
                     LocalData(this).saveUser(user)
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                     finish()
                 }
-            }
-            R.id.takePicture_label_bt -> {
-                dispatchTakePictureIntent()
             }
 //            R.id.upload_label_bt -> {
 //                openGalleryForImage()
@@ -115,49 +116,88 @@ class RegisterActivity : AppCompatActivity(),  View.OnClickListener {
             age = age_label_et.text.toString().toInt(),
             city = city_label_et.text.toString(),
             country = country_label_et.text.toString(),
-            male = (sex_label_et.text.toString() == "male"),
+            male = (sex_label_et.text.toString().toLowerCase() == "male"),
             heightInches = h_label_et.text.toString().toInt(),
             weightLbs = w_label_et.text.toString().toInt(),
             profilePicturePath = currentPhotoPath
         )
         return user
     }
-
-    fun checkInput(user: UserDataModel?): Boolean {
-        if(user?.userName == null || user?.userName == ""){
-            name_label_et.setError("User name is required.")
+    fun checkInputData(): Boolean {
+        if(name_label_et.text.toString() == null || name_label_et.text.toString() == ""){
+            Toast.makeText(this, "User Name is required.", Toast.LENGTH_SHORT).show()
             return false
         }
-        if(user?.age == null){
-            age_label_et.setError("Age is required")
+        else if(age_label_et.text.toString() == null || age_label_et.text.toString() == ""){
+            Toast.makeText(this, "Age is required.", Toast.LENGTH_SHORT).show()
             return false
         }
-        if(user?.city == null || user?.city == ""){
-            city_label_et.setError("City is required.")
+        else if(city_label_et.text.toString() == null || city_label_et.text.toString() == ""){
+            Toast.makeText(this, "City is required.", Toast.LENGTH_SHORT).show()
             return false
         }
-        if(user?.country == null || user?.country == ""){
-            country_label_et.setError("Country is required")
+        else if(country_label_et.text.toString() == null || country_label_et.text.toString() == ""){
+            Toast.makeText(this, "Country is required.", Toast.LENGTH_SHORT).show()
             return false
         }
-        if(user?.male == null){
-            name_label_et.setError("Sex is required")
+        else if(sex_label_et.text.toString() == null || sex_label_et.text.toString() == ""){
+            Toast.makeText(this, "Gender is required.", Toast.LENGTH_SHORT).show()
             return false
         }
-        if(user?.weightLbs == null){
-            w_label_et.setError("Weight is required")
+        else if(sex_label_et.text.toString().toLowerCase() != "male" && sex_label_et.text.toString().toLowerCase() != "female"){
+            Toast.makeText(this, "Please enter a valid gender. Male or Female.", Toast.LENGTH_SHORT).show()
             return false
         }
-        if(user?.heightInches == null){
-            h_label_et.setError("Height is required")
+        else if(h_label_et.text.toString() == null || h_label_et.text.toString() == ""){
+            Toast.makeText(this, "Height is required.", Toast.LENGTH_SHORT).show()
             return false
         }
-        if(user?.profilePicturePath == null){
-            h_label_et.setError("Please take a picture as your profile picture.")
+        else if(w_label_et.text.toString() == null || w_label_et.text.toString() == ""){
+            Toast.makeText(this, "Weight is required.", Toast.LENGTH_SHORT).show()
+            return false
+        }
+        else if(currentPhotoPath == null || currentPhotoPath == ""){
+            Toast.makeText(this, "Please take a photo.", Toast.LENGTH_SHORT).show()
             return false
         }
         return true
     }
+
+//    fun checkInput(user: UserDataModel?): Boolean {
+//        if(user?.userName == null || user?.userName == ""){
+//            name_label_et.setError("User name is required.")
+//            return false
+//        }
+//        if(user?.age == null){
+//            age_label_et.setError("Age is required")
+//            return false
+//        }
+//        if(user?.city == null || user?.city == ""){
+//            city_label_et.setError("City is required.")
+//            return false
+//        }
+//        if(user?.country == null || user?.country == ""){
+//            country_label_et.setError("Country is required")
+//            return false
+//        }
+//        if(user?.male == null){
+//            name_label_et.setError("Sex is required")
+//            return false
+//        }
+//        if(user?.weightLbs == null){
+//            w_label_et.setError("Weight is required")
+//            return false
+//        }
+//        if(user?.heightInches == null){
+//            h_label_et.setError("Height is required")
+//            return false
+//        }
+//        if(user?.profilePicturePath == null){
+//            h_label_et.setError("Please take a picture as your profile picture.")
+//            return false
+//        }
+//        return true
+//    }
 
 //    private fun openGalleryForImage() {
 //        val intent = Intent(Intent.ACTION_PICK)

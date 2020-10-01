@@ -40,7 +40,7 @@ class UserModelTest {
         assertEquals(60, userDataModelFooBar.heightInches)
         assertEquals(130, userDataModelFooBar.weightLbs)
         assertEquals(true, userDataModelFooBar.male)
-        assertNull(userDataModelFooBar.profilePicture)
+        assertNull(userDataModelFooBar.profilePicturePath)
         assertNull(userDataModelFooBar.activityLevel)
     }
 
@@ -54,7 +54,7 @@ class UserModelTest {
         assertNull(userDataModelNameOnly.country)
         assertNull(userDataModelNameOnly.heightInches)
         assertNull(userDataModelNameOnly.weightLbs)
-        assertNull(userDataModelNameOnly.profilePicture)
+        assertNull(userDataModelNameOnly.profilePicturePath)
     }
 
     @Test
