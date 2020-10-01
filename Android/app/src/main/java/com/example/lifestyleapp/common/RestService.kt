@@ -3,7 +3,7 @@ package com.example.lifestyleapp.common
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-
+//todo implement
 interface RestService {
     @GET("data/2.5/weather")
     fun getWeather(

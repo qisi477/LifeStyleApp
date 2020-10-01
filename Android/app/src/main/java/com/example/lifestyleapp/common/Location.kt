@@ -17,6 +17,7 @@ data class Location(
     var longitude: Float? = null,
 )
 
+//todo make suspend
 fun getTrails(
     location: Location,
     maxDistance: Float = 30F,

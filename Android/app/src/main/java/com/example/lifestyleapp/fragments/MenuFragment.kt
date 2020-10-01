@@ -1,6 +1,7 @@
 package com.example.lifestyleapp.fragments
 
 import android.content.Context
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,8 +15,10 @@ import com.example.lifestyleapp.common.TAG_XX
 import com.example.lifestyleapp.common.UserDataModel
 import kotlinx.android.synthetic.main.fragment_menu.*
 
+import java.lang.Exception
+
 private const val FIRST_NAME = "first_name"
-private const val GOAL = "goal"
+private const val IMAGE = "image"
 
 /**
  * A simple [Fragment] subclass.
@@ -25,13 +28,13 @@ private const val GOAL = "goal"
 class MenuFragment : Fragment(), View.OnClickListener{
     private var firstName: String? = null
     private var dataParser: DataParser? = null
-    private var goal: String? = null
+    private var imgPath: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             firstName = it.getString(FIRST_NAME)
-            goal = it.getString(GOAL)
+            imgPath = it.getString(IMAGE)
         }
     }
 
@@ -66,13 +69,16 @@ class MenuFragment : Fragment(), View.OnClickListener{
         if (firstName != "null") {
             name_tv.text = firstName
         }
-        if (goal != "null") {
-            val weightChange = goal?.toDouble()
-            if (weightChange != null) {
-                if (weightChange > 0) goal_tv.text = getString(R.string.gain)
-                else if (weightChange == 0.0) goal_tv.text = getString(R.string.maintain)
-                else goal_tv.text = getString(R.string.loss)
+
+        if (imgPath != null && imgPath != "null") {
+            // Log.d(TAG_XX, imgPath!!)
+            try {
+                val thumbnailImage = BitmapFactory.decodeFile(imgPath)
+                avater_iv.setImageBitmap(thumbnailImage)
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
+
         }
     }
 
@@ -90,7 +96,7 @@ class MenuFragment : Fragment(), View.OnClickListener{
             MenuFragment().apply {
                 arguments = Bundle().apply {
                     putString(FIRST_NAME, usr.userName)
-                    putString(GOAL, usr.weightChangeGoalPerWeek.toString())
+                    putString(IMAGE, usr.profilePicturePath)
                 }
             }
     }
@@ -103,11 +109,11 @@ class MenuFragment : Fragment(), View.OnClickListener{
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.summary_lv -> {
-                Log.d(TAG_XX, "Click summary linear layout")
+                //Log.d(TAG_XX, "Click summary linear layout")
                 dataParser?.dataHandler(Signals.SUMMARY) ?: return
             }
             R.id.logout_lv -> {
-                Log.d(TAG_XX, "Click logout linear layout")
+                //Log.d(TAG_XX, "Click logout linear layout")
                 val localData = LocalData(activity)
                 localData.deleteUser()
                 dataParser?.dataHandler(Signals.LOGOUT) ?: return

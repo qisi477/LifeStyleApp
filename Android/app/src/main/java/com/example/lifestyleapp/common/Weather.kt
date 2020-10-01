@@ -34,38 +34,31 @@ data class MainWeather(
     @Json(name = "temp_max")
     val tempMaxKelvin: Float,
     @Json(name = "pressure")
-    val pressure: Int, //todo get units
+    val atmosphericPressure: Int,
     @Json(name = "humidity")
-    val humidity: Int, //todo get units
+    val humidityPercent: Int,
 ) {
-    fun getTempFahrenheit(): Float {
-        return kelvinToFahrenheit(tempKelvin)
-    }
+    //todo better way to get conversions
+    fun getTempFahrenheit(): Float = kelvinToFahrenheit(tempKelvin)
 
-    fun getTempCelsius(): Float {
-        return kelvinToCelsius(tempKelvin)
-    }
+    fun getTempCelsius(): Float = kelvinToCelsius(tempKelvin)
 
-    fun getFeelsLikeTempFahrenheit(): Float {
-        return kelvinToFahrenheit(feelsLikeTempKelvin)
-    }
+    fun getFeelsLikeTempFahrenheit(): Float = kelvinToFahrenheit(feelsLikeTempKelvin)
 
-    fun getFeelsLikeTempCelsius(): Float {
-        return kelvinToCelsius(feelsLikeTempKelvin)
-    }
+    fun getFeelsLikeTempCelsius(): Float = kelvinToCelsius(feelsLikeTempKelvin)
 
-    private fun kelvinToFahrenheit(kelvinTemp: Float): Float {
-        return (kelvinTemp - 273.15F) * (9F / 5F) + 32F
-    }
+    fun getTempMinFahrenheit(): Float = kelvinToFahrenheit(tempMinKelvin)
+    fun getTempMaxFahrenheit(): Float = kelvinToFahrenheit(tempMaxKelvin)
 
-    private fun kelvinToCelsius(kelvinTemp: Float): Float {
-        return (kelvinTemp - 273.15F)
-    }
+    private fun kelvinToFahrenheit(kelvinTemp: Float): Float =
+        (kelvinTemp - 273.15F) * (9F / 5F) + 32F
+
+    private fun kelvinToCelsius(kelvinTemp: Float): Float = (kelvinTemp - 273.15F)
 }
 
 data class Wind(
     @Json(name = "speed")
-    val speed: Float, //todo get units
+    val speedMetersPerSecond: Float,
     @Json(name = "deg")
     val degreesDirection: Float,
 )
@@ -76,9 +69,8 @@ data class Wind(
  */
 fun getWeather(location: Location): Weather? {
     val url = buildURL(location)
-    Log.d(TAG_WEATHER, url)
     val result: String = URL(url).readText()
-    Log.d(TAG_WEATHER, result)
+    Log.d(TAG_WEATHER, url + result)
     return jsonTextToWeather(result)
 }
 
