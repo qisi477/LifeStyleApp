@@ -47,7 +47,7 @@ class SettingFragment : Fragment(), View.OnClickListener {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         try {
-            settingData = context as SettingFragment.SettingData
+            settingData = context as SettingData
         } catch (e: ClassCastException) {
             throw java.lang.ClassCastException("$context must implement DataParser Interface")
         }

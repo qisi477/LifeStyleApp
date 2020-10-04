@@ -12,7 +12,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.lifestyleapp.R
 import com.example.lifestyleapp.common.LocalData
-import com.example.lifestyleapp.common.TAG_XX
 import com.example.lifestyleapp.common.UserDataModel
 import kotlinx.android.synthetic.main.activity_register.*
 import java.io.File
@@ -21,10 +20,10 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class RegisterActivity : AppCompatActivity(), View.OnClickListener {
-    val REQUEST_IMAGE_CAPTURE = 1
+    private val requestImageCapture = 1
 
     //val REQUEST_CODE = 100
-    var currentPhotoPath: String? = null
+    private var currentPhotoPath: String? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,7 +42,6 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
                 dispatchTakePictureIntent()
             }
             R.id.register_label_bt -> {
-                // check input
                 if (checkInputData()) {
                     val user = readInput()
                     LocalData(this).saveUser(user)
@@ -52,21 +50,18 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
                     finish()
                 }
             }
-//            R.id.upload_label_bt -> {
-//                openGalleryForImage()
-//            }
         }
     }
 
     private fun dispatchTakePictureIntent() {
         val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         if (takePictureIntent.resolveActivity(packageManager) != null)
-            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
+            startActivityForResult(takePictureIntent, requestImageCapture)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+        if (requestCode == requestImageCapture && resultCode == RESULT_OK) {
             val imageBitmap = data?.extras?.get("data") as Bitmap
             //Open a file and write to it
             if (isExternalStorageWritable()) {
@@ -106,106 +101,42 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun isExternalStorageWritable(): Boolean {
         val state = Environment.getExternalStorageState()
-        if (Environment.MEDIA_MOUNTED.equals(state))
+        if (Environment.MEDIA_MOUNTED == state)
             return true
         return false
     }
 
-    fun readInput(): UserDataModel {
-        val user = UserDataModel(
+    private fun readInput(): UserDataModel {
+        return UserDataModel(
             userName = name_label_et.text.toString(),
-            age = age_label_et.text.toString().toInt(),
-            city = city_label_et.text.toString(),
-            country = country_label_et.text.toString(),
-            male = (sex_label_et.text.toString().toLowerCase() == "male"),
-            heightInches = h_label_et.text.toString().toInt(),
-            weightLbs = w_label_et.text.toString().toInt(),
+            age = if (age_label_et?.text.toString() == "") {
+                null
+            } else {
+                age_label_et?.text.toString().toInt()
+            },
+            city = city_label_et?.text.toString(),
+            country = country_label_et?.text.toString(),
+            sex = sex_label_et?.text.toString().toLowerCase(Locale.ROOT),
+            heightInches = if (h_label_et?.text.toString() == "") {
+                null
+            } else {
+                h_label_et?.text.toString().toInt()
+            },
+            weightLbs = if (w_label_et?.text.toString() == "") {
+                null
+            } else {
+                w_label_et?.text.toString().toInt()
+            },
             profilePicturePath = currentPhotoPath
         )
-        return user
     }
-  
-    fun checkInputData(): Boolean {
-        if(name_label_et.text.toString() == null || name_label_et.text.toString() == ""){
+
+    private fun checkInputData(): Boolean {
+        if (name_label_et?.text.toString() == "") {
             Toast.makeText(this, "User Name is required.", Toast.LENGTH_SHORT).show()
             return false
         }
-        else if(age_label_et.text.toString() == null || age_label_et.text.toString() == ""){
-            Toast.makeText(this, "Age is required.", Toast.LENGTH_SHORT).show()
-            return false
-        }
-        else if(city_label_et.text.toString() == null || city_label_et.text.toString() == ""){
-            Toast.makeText(this, "City is required.", Toast.LENGTH_SHORT).show()
-            return false
-        }
-        else if(country_label_et.text.toString() == null || country_label_et.text.toString() == ""){
-            Toast.makeText(this, "Country is required.", Toast.LENGTH_SHORT).show()
-            return false
-        }
-        else if(sex_label_et.text.toString() == null || sex_label_et.text.toString() == ""){
-            Toast.makeText(this, "Gender is required.", Toast.LENGTH_SHORT).show()
-            return false
-        }
-        else if(sex_label_et.text.toString().toLowerCase() != "male" && sex_label_et.text.toString().toLowerCase() != "female"){
-            Toast.makeText(this, "Please enter a valid gender. Male or Female.", Toast.LENGTH_SHORT).show()
-            return false
-        }
-        else if(h_label_et.text.toString() == null || h_label_et.text.toString() == ""){
-            Toast.makeText(this, "Height is required.", Toast.LENGTH_SHORT).show()
-            return false
-        }
-        else if(w_label_et.text.toString() == null || w_label_et.text.toString() == ""){
-            Toast.makeText(this, "Weight is required.", Toast.LENGTH_SHORT).show()
-            return false
-        }
-        else if(currentPhotoPath == null || currentPhotoPath == ""){
-            Toast.makeText(this, "Please take a photo.", Toast.LENGTH_SHORT).show()
-            return false
-        }
-      return true
+        return true
     }
-
-//    fun checkInput(user: UserDataModel?): Boolean {
-//        if(user?.userName == null || user?.userName == ""){
-//            name_label_et.setError("User name is required.")
-//            return false
-//        }
-//        if(user?.age == null){
-//            age_label_et.setError("Age is required")
-//            return false
-//        }
-//        if(user?.city == null || user?.city == ""){
-//            city_label_et.setError("City is required.")
-//            return false
-//        }
-//        if(user?.country == null || user?.country == ""){
-//            country_label_et.setError("Country is required")
-//            return false
-//        }
-//        if(user?.male == null){
-//            name_label_et.setError("Sex is required")
-//            return false
-//        }
-//        if(user?.weightLbs == null){
-//            w_label_et.setError("Weight is required")
-//            return false
-//        }
-//        if(user?.heightInches == null){
-//            h_label_et.setError("Height is required")
-//            return false
-//        }
-//        if(user?.profilePicturePath == null){
-//            h_label_et.setError("Please take a picture as your profile picture.")
-//            return false
-//        }
-//        return true
-//    }
-
-//    private fun openGalleryForImage() {
-//        val intent = Intent(Intent.ACTION_PICK)
-//        intent.type = "image/*"
-//        startActivityForResult(intent, REQUEST_CODE)
-//    }
-
 
 }

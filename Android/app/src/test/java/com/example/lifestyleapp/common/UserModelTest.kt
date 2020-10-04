@@ -20,7 +20,7 @@ class UserModelTest {
             country = "United States of America",
             heightInches = 60,
             weightLbs = 130,
-            male = true
+            sex = "male"
         )
         userModelFooBar = UserModel(userDataModelFooBar)
 
@@ -39,7 +39,7 @@ class UserModelTest {
         assertEquals("United States of America", userDataModelFooBar.country)
         assertEquals(60, userDataModelFooBar.heightInches)
         assertEquals(130, userDataModelFooBar.weightLbs)
-        assertEquals(true, userDataModelFooBar.male)
+        assertEquals("male", userDataModelFooBar.sex)
         assertNull(userDataModelFooBar.profilePicturePath)
         assertNull(userDataModelFooBar.activityLevel)
     }
@@ -71,9 +71,9 @@ class UserModelTest {
     @Test
     fun calculateBMR() {
         assertEquals(1516, userModelFooBar.calculateBMR())
-        userDataModelFooBar.male = false
+        userDataModelFooBar.sex = "female"
         assertEquals(1418, userModelFooBar.calculateBMR())
-        userDataModelFooBar.male = true
+        userDataModelFooBar.sex = "male"
         assertEquals(1516, userModelFooBar.calculateBMR())
     }
 

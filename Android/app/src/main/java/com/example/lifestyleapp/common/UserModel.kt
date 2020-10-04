@@ -24,13 +24,13 @@ class UserModel(private var userDataModel: UserDataModel) {
     fun calculateBMR(): Int? {
         //formula from https://www.bmi-calculator.net/bmr-calculator/bmr-formula.php
         return if (
-            userDataModel.male == null ||
+            userDataModel.sex == null ||
             userDataModel.weightLbs == null ||
             userDataModel.heightInches == null ||
             userDataModel.age == null
         ) {
             null
-        } else if (userDataModel.male!!) {
+        } else if (userDataModel.sex!! == "male") {
             (66 + (6.23 * userDataModel.weightLbs!!) + (12.7 * userDataModel.heightInches!!) - (6.8 * userDataModel.age!!)).roundToInt()
         } else { //Female formula
             (655 + (4.35 * userDataModel.weightLbs!!) + (4.7 * userDataModel.heightInches!!) - (4.7 * userDataModel.age!!)).roundToInt()

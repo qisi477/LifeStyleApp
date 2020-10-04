@@ -2,20 +2,14 @@ package com.example.lifestyleapp.fragments
 
 import android.graphics.BitmapFactory
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.lifestyleapp.R
 import com.example.lifestyleapp.common.CalculateData
-import com.example.lifestyleapp.common.TAG_XX
 import com.example.lifestyleapp.common.UserDataModel
-import kotlinx.android.synthetic.main.fragment_menu.*
 import kotlinx.android.synthetic.main.fragment_summary.*
-import kotlinx.android.synthetic.main.fragment_summary.goal_tv
-import kotlinx.android.synthetic.main.fragment_summary.name_tv
-import java.lang.Exception
 
 
 private const val USER_NAME = "first_name"
@@ -24,7 +18,7 @@ private const val CITY = "city"
 private const val COUNTRY = "country"
 private const val HEIGHT = "height"
 private const val WEIGHT = "weight"
-private const val IS_MALE = "is_male"
+private const val SEX = "sex"
 private const val BMI = "BMI"
 private const val BMR = "BMR"
 private const val DAILY = "daily"
@@ -61,7 +55,7 @@ class SummaryFragment : Fragment() {
             country = it.getString(COUNTRY)
             height = it.getString(HEIGHT)
             weight = it.getString(WEIGHT)
-            sex = it.getString(IS_MALE)
+            sex = it.getString(SEX)
             bmi = it.getString(BMI)
             bmr = it.getString(BMR)
             daily = it.getString(DAILY)
@@ -69,15 +63,12 @@ class SummaryFragment : Fragment() {
             activityLevel = it.getString(ACTIVITY_LEVEL)
             imgPath = it.getString(IMAGE)
         }
-        // Log.d(TAG_XX, "$user_name $age $city $country $height $weight $sex $goal")
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        // Inflate the layout for this fragment
-        // Log.d(TAG_XX, "Initialize the fragment")
         return inflater.inflate(R.layout.fragment_summary, container, false)
     }
 
@@ -89,10 +80,7 @@ class SummaryFragment : Fragment() {
             val loc = "$city, $country"
             location_tv.text = loc
         }
-        if (sex != "null") {
-            if (sex == "true") sex_tv.text = getString(R.string.male)
-            else sex_tv.text = getString(R.string.female)
-        }
+        if (sex != "null") sex_tv.text = sex
         if (height != "null") h_tv.text = height
         if (weight != "null") w_tv.text = weight
         if (bmr != "null") bmr_tv.text = bmr
@@ -106,14 +94,15 @@ class SummaryFragment : Fragment() {
         if (goal != "null") {
             val weightChange = goal?.toDouble()
             if (weightChange != null) {
-                if (weightChange > 0) goal_tv.text = getString(R.string.gain)
-                else if (weightChange == 0.0) goal_tv.text = getString(R.string.maintain)
-                else goal_tv.text = getString(R.string.loss)
+                when {
+                    weightChange > 0 -> goal_tv.text = getString(R.string.gain)
+                    weightChange == 0.0 -> goal_tv.text = getString(R.string.maintain)
+                    else -> goal_tv.text = getString(R.string.loss)
+                }
             }
         }
 
         if (imgPath != null && imgPath != "null") {
-            // Log.d(TAG_XX, imgPath!!)
             try {
                 val thumbnailImage = BitmapFactory.decodeFile(imgPath)
                 thumb_iv.setImageBitmap(thumbnailImage)
@@ -127,30 +116,21 @@ class SummaryFragment : Fragment() {
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment SummaryFragment.
-         */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(usr: UserDataModel, calcu: CalculateData) =
+        fun newInstance(usr: UserDataModel, calc: CalculateData) =
             SummaryFragment().apply {
                 arguments = Bundle().apply {
                     putString(USER_NAME, usr.userName)
                     putString(AGE, usr.age.toString())
-                    putString(IS_MALE, usr.male.toString())
+                    putString(SEX, usr.sex.toString())
                     putString(COUNTRY, usr.country)
                     putString(CITY, usr.city)
                     putString(HEIGHT, usr.heightInches.toString())
                     putString(WEIGHT, usr.weightLbs.toString())
                     putString(ACTIVITY_LEVEL, usr.activityLevel)
-                    putString(BMI, calcu.BMI.toString())
-                    putString(BMR, calcu.BMR.toString())
-                    putString(DAILY, calcu.daily.toString())
+                    putString(BMI, calc.BMI.toString())
+                    putString(BMR, calc.BMR.toString())
+                    putString(DAILY, calc.daily.toString())
                     putString(GOAL, usr.weightChangeGoalPerWeek.toString())
                     putString(IMAGE, usr.profilePicturePath)
                 }

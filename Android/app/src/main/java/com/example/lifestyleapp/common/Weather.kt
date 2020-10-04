@@ -67,8 +67,8 @@ data class Wind(
  * provided by openweathermap, Current weather and forecast: Free plan
  * Allowed Calls per minute: 60
  */
-fun getWeather(location: Location): Weather? {
-    val url = buildURL(location)
+fun getWeather(location: Location?): Weather? {
+    val url = location?.let { buildURL(it) } ?: return null
     val result: String = URL(url).readText()
     Log.d(TAG_WEATHER, url + result)
     return jsonTextToWeather(result)
@@ -80,13 +80,16 @@ docs https://openweathermap.org/current
 example query
 https://api.openweathermap.org/data/2.5/weather?q=Ogden,ut,usa&appid=a742f92606870e1ee06b22a9502b644d
  */
-private fun buildURL(location: Location): String {
+private fun buildURL(location: Location?): String? {
     var url = "https://api.openweathermap.org/data/2.5/weather?q="
-    if (!location.city.isNullOrEmpty()) url += location.city!!.trim().replace(" ", "%20")
-    if (!location.country.isNullOrEmpty()) {
+    if (!location?.city.isNullOrEmpty()) url += location?.city!!.trim().replace(" ", "%20")
+    if (!location?.country.isNullOrEmpty()) {
         url += ",${
-            location.country!!.trim().replace(" ", "%20")
+            location?.country!!.trim().replace(" ", "%20")
         }"
+    }
+    if (url == "https://api.openweathermap.org/data/2.5/weather?q=") {
+        return null
     }
     val apiKey = "a742f92606870e1ee06b22a9502b644d"
     url += "&appid=$apiKey"

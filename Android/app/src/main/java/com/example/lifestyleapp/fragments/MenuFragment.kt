@@ -15,8 +15,6 @@ import com.example.lifestyleapp.common.TAG_XX
 import com.example.lifestyleapp.common.UserDataModel
 import kotlinx.android.synthetic.main.fragment_menu.*
 
-import java.lang.Exception
-
 private const val FIRST_NAME = "first_name"
 private const val IMAGE = "image"
 
@@ -25,7 +23,7 @@ private const val IMAGE = "image"
  * Use the [MenuFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class MenuFragment : Fragment(), View.OnClickListener{
+class MenuFragment : Fragment(), View.OnClickListener {
     private var firstName: String? = null
     private var dataParser: DataParser? = null
     private var imgPath: String? = null
@@ -46,7 +44,7 @@ class MenuFragment : Fragment(), View.OnClickListener{
         super.onAttach(context)
         try {
             dataParser = context as DataParser
-        } catch (e :ClassCastException) {
+        } catch (e: ClassCastException) {
             throw java.lang.ClassCastException("$context must implement DataParser Interface")
         }
     }
@@ -74,7 +72,7 @@ class MenuFragment : Fragment(), View.OnClickListener{
             // Log.d(TAG_XX, imgPath!!)
             try {
                 val thumbnailImage = BitmapFactory.decodeFile(imgPath)
-                avater_iv.setImageBitmap(thumbnailImage)
+                avatar_iv.setImageBitmap(thumbnailImage)
             } catch (e: Exception) {
                 e.printStackTrace()
             }
@@ -83,14 +81,6 @@ class MenuFragment : Fragment(), View.OnClickListener{
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @return A new instance of fragment MenuFragment.
-         */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(usr: UserDataModel) =
             MenuFragment().apply {

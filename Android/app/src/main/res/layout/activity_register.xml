@@ -57,7 +57,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:fontFamily="@font/oswald"
-        android:text="Register"
+        android:text="@string/register"
         android:textColor="@color/design_default_color_on_secondary"
         android:textSize="36sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
@@ -92,56 +92,63 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/tf_padding"
-                android:hint="Name"
-                android:inputType="text"/>
+                android:autofillHints="User Name"
+                android:hint="@string/username"
+                android:inputType="text" />
 
             <EditText
                 android:id="@+id/age_label_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/tf_padding"
-                android:hint="Age"
-                android:inputType="number"/>
+                android:autofillHints="@string/age"
+                android:hint="@string/age"
+                android:inputType="number" />
 
             <EditText
                 android:id="@+id/city_label_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/tf_padding"
-                android:hint="City"
-                android:inputType="text"/>
+                android:autofillHints="@string/city"
+                android:hint="@string/city"
+                android:inputType="text" />
 
             <EditText
                 android:id="@+id/country_label_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/tf_padding"
-                android:hint="Country"
-                android:inputType="text"/>
+                android:autofillHints="Country"
+                android:hint="@string/country"
+                android:inputType="text" />
 
             <EditText
                 android:id="@+id/sex_label_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/tf_padding"
-                android:hint="Gender(Male/Female)"
-                android:inputType="text"/>
+                android:autofillHints="@string/sex"
+                android:hint="@string/sex"
+                android:inputType="text" />
 
             <EditText
                 android:id="@+id/h_label_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/tf_padding"
-                android:hint="Height in inches"
-                android:inputType="number"/>
+                android:autofillHints="@string/height_in_inches"
+                android:hint="@string/height_in_inches"
+                android:inputType="number" />
 
             <EditText
                 android:id="@+id/w_label_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/tf_padding"
-                android:hint="Weight in lbs"
-                android:inputType="number"/>
+                android:autofillHints="@string/weight_in_lbs"
+                android:hint="@string/weight_in_lbs"
+                android:inputType="number" />
 
             <Button
                 android:id="@+id/register_label_bt"
@@ -149,7 +156,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="18dp"
                 android:background="#ffffff"
-                android:text="Register Now"
+                android:text="@string/register_now"
                 android:textColor="#673AB7"
                 android:textSize="18sp" />
         </LinearLayout>
@@ -171,7 +178,8 @@
             android:id="@+id/image_label_im"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:background="@color/colorGrey"/>
+            android:background="@color/colorGrey"
+            android:contentDescription="@string/profile_picture" />
 
         <LinearLayout
             android:id="@+id/picButton_linearLayout"
@@ -179,21 +187,21 @@
             android:layout_height="100dp"
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
-<!--            <Button-->
-<!--                android:id="@+id/upload_label_bt"-->
-<!--                android:layout_width="150dp"-->
-<!--                android:layout_height="40dp"-->
-<!--                android:layout_marginTop="3dp"-->
-<!--                android:text="Upload photo" />-->
+            <!--            <Button-->
+            <!--                android:id="@+id/upload_label_bt"-->
+            <!--                android:layout_width="150dp"-->
+            <!--                android:layout_height="40dp"-->
+            <!--                android:layout_marginTop="3dp"-->
+            <!--                android:text="Upload photo" />-->
 
             <Button
                 android:id="@+id/takePicture_label_bt"
                 android:layout_width="150dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="30dp"
-                android:text="Take a picture" />
+                android:text="@string/take_a_picture" />
         </LinearLayout>
     </LinearLayout>
 

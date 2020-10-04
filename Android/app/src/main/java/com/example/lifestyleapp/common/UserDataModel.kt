@@ -1,7 +1,5 @@
 package com.example.lifestyleapp.common
 
-import android.graphics.Picture
-
 data class UserDataModel(
     var userName: String,
     var age: Int? = null,
@@ -9,7 +7,7 @@ data class UserDataModel(
     var country: String? = null,
     var heightInches: Int? = null,
     var weightLbs: Int? = null,
-    var male: Boolean? = null,
+    var sex: String? = null,
     var profilePicturePath: String? = null,
     var activityLevel: String? = null,
     var weightChangeGoalPerWeek: Float? = null,

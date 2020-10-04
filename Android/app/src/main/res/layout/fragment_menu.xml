@@ -37,7 +37,7 @@
         app:layout_constraintGuide_percent="0.15" />
 
     <ImageView
-        android:id="@+id/avater_iv"
+        android:id="@+id/avatar_iv"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="32dp"
@@ -95,10 +95,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:orientation="horizontal"
-            android:clickable="true"
             android:background="?android:attr/selectableItemBackground"
-            android:focusable="true">
+            android:clickable="true"
+            android:focusable="true"
+            android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/imageView3"
@@ -115,15 +115,16 @@
                 android:text="@string/summary"
                 android:textSize="18sp" />
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/goal_lv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:orientation="horizontal"
-            android:clickable="true"
             android:background="?android:attr/selectableItemBackground"
-            android:focusable="true">
+            android:clickable="true"
+            android:focusable="true"
+            android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/imageView4"
@@ -140,15 +141,16 @@
                 android:text="@string/set_goal"
                 android:textSize="18sp" />
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/hikes_lv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:orientation="horizontal"
-            android:clickable="true"
             android:background="?android:attr/selectableItemBackground"
-            android:focusable="true">
+            android:clickable="true"
+            android:focusable="true"
+            android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/imageView5"
@@ -165,15 +167,16 @@
                 android:text="@string/hikes"
                 android:textSize="18sp" />
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/weather_lv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:orientation="horizontal"
-            android:clickable="true"
             android:background="?android:attr/selectableItemBackground"
-            android:focusable="true">
+            android:clickable="true"
+            android:focusable="true"
+            android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/imageView6"
@@ -190,15 +193,16 @@
                 android:text="@string/weather"
                 android:textSize="18sp" />
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/logout_lv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:orientation="horizontal"
-            android:clickable="true"
             android:background="?android:attr/selectableItemBackground"
-            android:focusable="true">
+            android:clickable="true"
+            android:focusable="true"
+            android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/imageView7"
