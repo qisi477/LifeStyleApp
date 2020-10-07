@@ -15,6 +15,10 @@ data class Weather(
     val visibility: Int,
     @Json(name = "wind")
     val wind: Wind,
+    @Json(name = "sys")
+    val sys: Sys,
+    @Json(name = "name")
+    val city: String,
 )
 
 data class Coord(
@@ -61,6 +65,11 @@ data class Wind(
     val speedMetersPerSecond: Float,
     @Json(name = "deg")
     val degreesDirection: Float,
+)
+
+data class Sys(
+    @Json(name = "country")
+    val countryCode: String
 )
 
 /**
