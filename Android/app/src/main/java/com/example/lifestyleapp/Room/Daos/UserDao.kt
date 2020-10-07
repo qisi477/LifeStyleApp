@@ -9,7 +9,7 @@ import com.example.lifestyleapp.common.UserDataModel
 
 @Dao
 interface UserDao {
-    @Query("SELECT * from user_table LIMIT 1")
+    @Query("SELECT * FROM user_table")
     fun getUserLiveData(): LiveData<List<UserDataModel>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -17,4 +17,7 @@ interface UserDao {
 
     @Query("DELETE FROM user_table")
     suspend fun deleteAll()
+
+    @Query("SELECT * FROM user_table")
+    suspend fun getUsers(): List<UserDataModel>
 }

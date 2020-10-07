@@ -6,7 +6,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "user_table")
-data class UserDataModel(
+class UserDataModel(
     @PrimaryKey
     @NonNull
     @ColumnInfo(name = "user_name")

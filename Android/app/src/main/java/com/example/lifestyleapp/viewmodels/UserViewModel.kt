@@ -1,10 +1,12 @@
 package com.example.lifestyleapp.viewmodels
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.example.lifestyleapp.Room.Databases.UserDatabase
+import com.example.lifestyleapp.common.TAG_XX
 import com.example.lifestyleapp.common.UserDataModel
 import com.example.lifestyleapp.repositories.UserRepository
 import kotlinx.coroutines.Dispatchers
@@ -24,6 +26,12 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
      * Launching a new coroutine to insert the data in a non-blocking way
      */
     fun setNewUser(user: UserDataModel) = viewModelScope.launch(Dispatchers.IO) {
+        //Log.d(TAG_XX, "ViewModel Tries to set user: ${user.userName}")
         userRepository.setUser(user)
+    }
+
+    fun getOneUser() = viewModelScope.launch(Dispatchers.IO) {
+        val values = userRepository.getUser()
+        //Log.d(TAG_XX, "ViewModel Tries to get user: ${values[0].userName}")
     }
 }

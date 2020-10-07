@@ -3,14 +3,19 @@ package com.example.lifestyleapp.activities
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.example.lifestyleapp.R
 import com.example.lifestyleapp.common.*
 import com.example.lifestyleapp.fragments.MenuFragment
 import com.example.lifestyleapp.fragments.SettingFragment
 import com.example.lifestyleapp.fragments.SummaryFragment
 import com.example.lifestyleapp.fragments.WeatherFragment
+import com.example.lifestyleapp.viewmodels.UserViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), MenuFragment.DataParser, SettingFragment.SettingData,
@@ -25,6 +30,7 @@ class MainActivity : AppCompatActivity(), MenuFragment.DataParser, SettingFragme
             startActivity(intent)
             finish()
         }
+
         menu_bt?.setOnClickListener(this)
         if (isTablet()) {
             val fragmentTransaction = supportFragmentManager.beginTransaction()
