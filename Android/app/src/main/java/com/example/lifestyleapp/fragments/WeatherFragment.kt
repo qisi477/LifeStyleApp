@@ -6,6 +6,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.lifestyleapp.R
+import com.example.lifestyleapp.common.HeavyWorker
 import com.example.lifestyleapp.common.TAG_WEATHER
 import com.example.lifestyleapp.common.UserDataModel
 import com.example.lifestyleapp.common.Weather
@@ -26,6 +27,7 @@ class WeatherFragment : Fragment(R.layout.fragment_weather) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        weatherViewModel.weatherRepository = HeavyWorker()
         if (savedInstanceState == null) {
             arguments?.let {
                 val city = it.getString(CITY)
@@ -38,7 +40,6 @@ class WeatherFragment : Fragment(R.layout.fragment_weather) {
             updateView(weather)
         }
     }
-
 
     private fun updateView(weather: Weather) {
         location_tv?.text = "${weather.city}, ${weather.sys.countryCode}"

@@ -27,7 +27,7 @@ class HeavyWorkerTest {
 
     @Test
     fun useRunBlockingTest() = coroutinesTestRule.testDispatcher.runBlockingTest {
-        val weather = HeavyWorker(coroutinesTestRule.testDispatcherProvider).suspendGetWeather(
+        val weather = HeavyWorker(coroutinesTestRule.testDispatcherProvider).loadData(
             Location(
                 city = "ogden",
                 country = "United States",

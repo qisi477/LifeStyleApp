@@ -1,6 +1,5 @@
 package com.example.lifestyleapp.common
 
-import android.util.Log
 import com.beust.klaxon.Json
 import com.beust.klaxon.Klaxon
 import java.io.StringReader
@@ -79,7 +78,6 @@ data class Sys(
 fun getWeather(location: Location?): Weather? {
     val url = location?.let { buildURL(it) } ?: return null
     val result: String = URL(url).readText()
-    Log.d(TAG_WEATHER, url + result)
     return jsonTextToWeather(result)
 }
 

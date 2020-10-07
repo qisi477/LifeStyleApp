@@ -1,14 +1,14 @@
 package com.example.lifestyleapp.common
 
+import com.example.lifestyleapp.repositories.WeatherRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 
-class HeavyWorker(private val dispatchers: DispatcherProvider = DefaultDispatcherProvider()) {
-    suspend fun suspendGetWeather(location: Location): Weather? {
-        return withContext(dispatchers.io()) {
-            getWeather(location)
-        }
+class HeavyWorker(private val dispatchers: DispatcherProvider = DefaultDispatcherProvider()) :
+    WeatherRepository {
+
+    override suspend fun loadData(location: Location): Weather? {
+        return getWeather(location)
     }
 }
 

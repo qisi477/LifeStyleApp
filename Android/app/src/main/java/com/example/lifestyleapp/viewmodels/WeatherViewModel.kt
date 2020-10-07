@@ -19,22 +19,12 @@ class WeatherViewModel : ViewModel() {
 
     val weatherLiveData: LiveData<Weather> = _weatherLiveData
 
-    private val weatherRepository: WeatherRepository by lazy {
-        WeatherRepository()
-    }
-
-    fun getWeather(): LiveData<Weather> {
-        return weatherRepository.weather
-    }
-
-    fun setLocation(location: Location) {
-        weatherRepository.loadData(location)
-    }
+    lateinit var weatherRepository: WeatherRepository
 
     fun onViewCreated(city: String?, country: String?) {
         viewModelScope.launch(Dispatchers.IO) {
             val fetchedWeather =
-                HeavyWorker().suspendGetWeather(Location(city = city, country = country))
+                HeavyWorker().loadData(Location(city = city, country = country))
             _weatherLiveData.postValue(fetchedWeather)
         }
     }
