@@ -4,29 +4,29 @@ import android.app.Activity
 import android.content.Context
 import com.google.gson.Gson
 
-class LocalData (activity: Activity?) {
-    private val DATA_LABEL = "LocalData"
-    private val USER_LABEL = "CurrentUser"
+class LocalData(activity: Activity?) {
+    private val dataLabel: String = "LocalData"
+    private val userLabel: String = "CurrentUser"
 
-    val sharedPreferences = activity?.getSharedPreferences(DATA_LABEL, Context.MODE_PRIVATE)
+    private val sharedPreferences = activity?.getSharedPreferences(dataLabel, Context.MODE_PRIVATE)
     // val sharedPreferences = activity.getSharedPreferences(DATA_LABEL, Context.MODE_PRIVATE)
 
     fun saveUser(usr: UserDataModel) {
         val editor = sharedPreferences?.edit() ?: return
         val gson = Gson()
-        editor.putString(USER_LABEL, gson.toJson(usr))
+        editor.putString(userLabel, gson.toJson(usr))
         editor.apply()
     }
 
-    fun getUser() : UserDataModel? {
-        val usr = sharedPreferences?.getString(USER_LABEL, null) ?: return null
+    fun getUser(): UserDataModel? {
+        val usr = sharedPreferences?.getString(userLabel, null) ?: return null
         val gson = Gson()
         return gson.fromJson(usr, UserDataModel::class.java)
     }
 
     fun deleteUser() {
         val editor = sharedPreferences?.edit() ?: return
-        editor.remove(USER_LABEL)
+        editor.remove(userLabel)
         editor.apply()
     }
 }

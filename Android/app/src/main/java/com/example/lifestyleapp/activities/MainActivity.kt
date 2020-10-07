@@ -6,9 +6,16 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.example.lifestyleapp.R
 import com.example.lifestyleapp.common.*
-import com.example.lifestyleapp.fragments.*
+import com.example.lifestyleapp.fragments.MenuFragment
+import com.example.lifestyleapp.fragments.SettingFragment
+import com.example.lifestyleapp.fragments.SummaryFragment
+import com.example.lifestyleapp.fragments.WeatherFragment
+import com.example.lifestyleapp.viewmodels.UserViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), MenuFragment.DataParser, SettingFragment.SettingData,
@@ -17,20 +24,22 @@ class MainActivity : AppCompatActivity(), MenuFragment.DataParser, SettingFragme
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        // load user info
         val localData = LocalData(this)
-//        localData.saveUser(fakeUser)
         if (localData.getUser() == null) {
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
             finish()
         }
+
         menu_bt?.setOnClickListener(this)
-        // split behavior according to device type
         if (isTablet()) {
             val fragmentTransaction = supportFragmentManager.beginTransaction()
             val usr = localData.getUser() ?: fakeUser2
-            fragmentTransaction.replace(R.id.frame_master, MenuFragment.newInstance(usr), "menu_frag")
+            fragmentTransaction.replace(
+                R.id.frame_master,
+                MenuFragment.newInstance(usr),
+                "menu_frag"
+            )
             fragmentTransaction.commit()
         }
         dataHandler(currentSignals)
@@ -89,9 +98,8 @@ class MainActivity : AppCompatActivity(), MenuFragment.DataParser, SettingFragme
                 currentSignals = Signals.SUMMARY
                 val localData = LocalData(this)
                 val usr = localData.getUser() ?: fakeUser2
-                val city = usr.city ?: "me"
-                val gmmIntentUri =
-                    Uri.parse("geo:0,0?q=trails near $city")
+                val city = if (!usr.city.isNullOrEmpty()) usr.city else "me"
+                val gmmIntentUri = Uri.parse("geo:0,0?q=trails near $city")
                 val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
                 mapIntent.setPackage("com.google.android.apps.maps")
                 startActivity(mapIntent)
@@ -114,10 +122,6 @@ class MainActivity : AppCompatActivity(), MenuFragment.DataParser, SettingFragme
         goal: String,
         activityLevel: String
     ) {
-//        Log.d(
-//            TAG_XX,
-//            "Changed: height($height) weight($weight) goal($goal) active($activityLevel)"
-//        )
         val localData = LocalData(this)
         val usr = localData.getUser() ?: fakeUser2
         if (height != "") usr.heightInches = height.toInt()

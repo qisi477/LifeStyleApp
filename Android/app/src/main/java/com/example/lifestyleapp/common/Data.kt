@@ -17,7 +17,7 @@ val fakeUser = UserDataModel(
     country = "US",
     heightInches = 70,
     weightLbs = 130,
-    male = true,
+    sex = "male",
     activityLevel = "Active",
     weightChangeGoalPerWeek = -1.2f
 )
@@ -29,7 +29,7 @@ val fakeUser2 = UserDataModel(
     country = "US",
     heightInches = 70,
     weightLbs = 130,
-    male = true,
+    sex = "male",
     activityLevel = "Active",
     weightChangeGoalPerWeek = 0f
 )
@@ -40,7 +40,7 @@ data class CalculateData(
     val daily: Int?
 )
 
-val TAG_XX = "XUEFENGX"
-val TAG_WEATHER = "WEATHER"
-val TAG_CH = "CHADHURST"
+const val TAG_XX = "XUEFENGX"
+const val TAG_WEATHER = "WEATHER"
+const val TAG_CH = "CHADHURST"
 
