@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.observe
 import com.example.lifestyleapp.R
 import com.example.lifestyleapp.common.HeavyWorker
 import com.example.lifestyleapp.common.TAG_WEATHER

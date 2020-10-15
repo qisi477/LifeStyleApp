@@ -8,15 +8,17 @@ import android.view.ViewGroup
 import android.widget.SeekBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import com.example.lifestyleapp.R
 import com.example.lifestyleapp.common.UserDataModel
+import com.example.lifestyleapp.viewmodels.UserViewModel
 import kotlinx.android.synthetic.main.fragment_setting.*
 import kotlinx.android.synthetic.main.fragment_setting.view.*
 
-private const val HEIGHT = "height"
-private const val WEIGHT = "weight"
-private const val GOAL = "goal"
-private const val ACTIVITY_LEVEL = "activity_level"
+//private const val HEIGHT = "height"
+//private const val WEIGHT = "weight"
+//private const val GOAL = "goal"
+//private const val ACTIVITY_LEVEL = "activity_level"
 
 /**
  * A simple [Fragment] subclass.
@@ -24,24 +26,27 @@ private const val ACTIVITY_LEVEL = "activity_level"
  * create an instance of this fragment.
  */
 class SettingFragment : Fragment(), View.OnClickListener {
-    private var height: String? = null
-    private var weight: String? = null
+    private var height: Int? = null
+    private var weight: Int? = null
     private var activityLevel: String? = null
-    private var goal: String? = null
+    private var goal: Float? = null
     private var settingData: SettingData? = null
+
+    private var userViewModel: UserViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            height = it.getString(HEIGHT)
-            weight = it.getString(WEIGHT)
-            goal = it.getString(GOAL)
-            activityLevel = it.getString(ACTIVITY_LEVEL)
-        }
+//        arguments?.let {
+//            height = it.getString(HEIGHT)
+//            weight = it.getString(WEIGHT)
+//            goal = it.getString(GOAL)
+//            activityLevel = it.getString(ACTIVITY_LEVEL)
+//        }
     }
 
     interface SettingData {
-        fun settingDataHandler(height: String, weight: String, goal: String, activityLevel: String)
+        //fun settingDataHandler(height: String, weight: String, goal: String, activityLevel: String)
+        fun settingDataHandler()
     }
 
     override fun onAttach(context: Context) {
@@ -58,10 +63,13 @@ class SettingFragment : Fragment(), View.OnClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        val currView = inflater.inflate(R.layout.fragment_setting, container, false)
-        currView.finish_btn.setOnClickListener(this)
-        currView.goalSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+        return inflater.inflate(R.layout.fragment_setting, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        finish_btn.setOnClickListener(this)
+        goalSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(
                 seekBar: SeekBar, progress: Int,
                 fromUser: Boolean
@@ -82,7 +90,17 @@ class SettingFragment : Fragment(), View.OnClickListener {
                 return
             }
         })
-        return currView
+        userViewModel = activity?.application?.let { UserViewModel(it) }
+        userViewModel?.allUsers?.observe(viewLifecycleOwner, Observer {
+            // Log.d(TAG_XX, "User view model: ${it.size}")
+            if (it.isNotEmpty()) {
+                val usr = it[0]
+                height = usr.heightInches
+                weight = usr.weightLbs
+                activityLevel = usr.activityLevel?.toString()
+                goal = usr.weightChangeGoalPerWeek
+            }
+        })
     }
 
     companion object {
@@ -93,30 +111,37 @@ class SettingFragment : Fragment(), View.OnClickListener {
          * @return A new instance of fragment SettingFragment.
          */
         @JvmStatic
-        fun newInstance(usr: UserDataModel) =
+        fun newInstance() =
             SettingFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ACTIVITY_LEVEL, usr.activityLevel)
-                    putString(HEIGHT, usr.heightInches.toString())
-                    putString(WEIGHT, usr.weightLbs.toString())
-                    putString(GOAL, usr.weightChangeGoalPerWeek.toString())
-                }
+//                arguments = Bundle().apply {
+//                    putString(ACTIVITY_LEVEL, usr.activityLevel)
+//                    putString(HEIGHT, usr.heightInches.toString())
+//                    putString(WEIGHT, usr.weightLbs.toString())
+//                    putString(GOAL, usr.weightChangeGoalPerWeek.toString())
+//                }
             }
     }
 
     override fun onClick(p0: View?) {
         when (p0?.id) {
             R.id.finish_btn -> {
-                weight = current_weight_tf.text.toString()
-                height = current_height_tf.text.toString()
-                goal = (goalSeekBar.progress - 5).toString()
+                if (current_weight_tf.text.toString() != "") {
+                    weight = current_weight_tf.text.toString().toInt()
+                }
+                if (current_height_tf.text.toString() != "") {
+                    height = current_height_tf.text.toString().toInt()
+                }
+                goal = (goalSeekBar.progress - 5).toString().toFloat()
                 activityLevel = if (active_switch.isChecked) "Active" else "Sedentary"
-                settingData?.settingDataHandler(
-                    height ?: "",
-                    weight ?: "",
-                    goal ?: "",
-                    activityLevel ?: ""
-                )
+                if (userViewModel?.allUsers?.value?.isNotEmpty()!!) {
+                    val usr = userViewModel!!.allUsers.value?.get(0)
+                    usr?.weightLbs = weight
+                    usr?.heightInches = height
+                    usr?.weightChangeGoalPerWeek = goal
+                    usr?.activityLevel = activityLevel
+                    userViewModel!!.setNewUser(usr!!)
+                }
+                settingData?.settingDataHandler()
             }
         }
     }

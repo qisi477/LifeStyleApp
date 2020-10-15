@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.lifestyleapp.R
 import com.example.lifestyleapp.common.LocalData
 import com.example.lifestyleapp.common.UserDataModel
+import com.example.lifestyleapp.viewmodels.UserViewModel
 import kotlinx.android.synthetic.main.activity_register.*
 import java.io.File
 import java.io.FileOutputStream
@@ -45,6 +46,8 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
                 if (checkInputData()) {
                     val user = readInput()
                     LocalData(this).saveUser(user)
+                    val userViewModel = UserViewModel(application)
+                    userViewModel.setNewUser(user)
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                     finish()
