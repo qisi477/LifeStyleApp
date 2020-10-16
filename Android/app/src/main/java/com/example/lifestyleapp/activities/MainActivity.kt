@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity(), MenuFragment.DataParser, SettingFragme
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val localData = LocalData(this)
-        if (localData.getUser() == null) {
+        if (!localData.getRegister()) {
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
             finish()
@@ -83,6 +83,8 @@ class MainActivity : AppCompatActivity(), MenuFragment.DataParser, SettingFragme
             }
             Signals.LOGOUT -> {
                 currentSignals = Signals.SUMMARY
+                val localData = LocalData(this)
+                localData.unregister()
                 val intent = Intent(this, RegisterActivity::class.java)
                 startActivity(intent)
                 finish()
@@ -100,8 +102,8 @@ class MainActivity : AppCompatActivity(), MenuFragment.DataParser, SettingFragme
                 currentSignals = Signals.SUMMARY
 //                val localData = LocalData(this)
 //                val usr = localData.getUser() ?: fakeUser2
-                var city = "me"
                 val userViewModel = application?.let { UserViewModel(it) }
+                var city = userViewModel?.allUsers?.value?.get(0)?.city ?: "me"
                 userViewModel?.allUsers?.observe(this, Observer {
                     if (it.isNotEmpty()) {
                         val usr = it[0]

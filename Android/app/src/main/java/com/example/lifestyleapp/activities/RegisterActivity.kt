@@ -46,6 +46,8 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
                 if (checkInputData()) {
                     val user = readInput()
                     LocalData(this).saveUser(user)
+                    val localData = LocalData(this)
+                    localData.register()
                     val userViewModel = UserViewModel(application)
                     userViewModel.setNewUser(user)
                     val intent = Intent(this, MainActivity::class.java)
