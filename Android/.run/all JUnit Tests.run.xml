@@ -1,0 +1,16 @@
+<component name="ProjectRunConfigurationManager">
+    <configuration name="all JUnit Tests" default="false" factoryName="Android JUnit"
+        singleton="false" type="AndroidJUnit">
+        <module name="LifeStyleApp.app" />
+        <useClassPathOnly />
+        <option name="MAIN_CLASS_NAME" value="" />
+        <option name="METHOD_NAME" value="" />
+        <option name="TEST_OBJECT" value="directory" />
+        <option name="PARAMETERS" value="" />
+        <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/app/src" />
+        <dir value="$PROJECT_DIR$/app/src/test" />
+        <method v="2">
+            <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+        </method>
+    </configuration>
+</component>

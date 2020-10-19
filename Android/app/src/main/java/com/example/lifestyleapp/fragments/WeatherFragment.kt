@@ -33,7 +33,7 @@ class WeatherFragment : Fragment(R.layout.fragment_weather) {
             arguments?.let {
                 val city = it.getString(CITY)
                 val country = it.getString(COUNTRY)
-                Log.d(TAG_WEATHER, "$city $country")
+                Log.d(TAG_WEATHER, "$city, $country")
                 _weatherViewModel.onViewCreated(city, country)
             }
         }
@@ -50,7 +50,6 @@ class WeatherFragment : Fragment(R.layout.fragment_weather) {
             weather?.mainWeather?.getFeelsLikeTempFahrenheit()?.roundToInt().toString()
         temp_min_tv?.text = weather?.mainWeather?.getTempMinFahrenheit()?.roundToInt().toString()
         temp_max_tv?.text = weather?.mainWeather?.getTempMaxFahrenheit()?.roundToInt().toString()
-
     }
 
     companion object {

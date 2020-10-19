@@ -22,7 +22,6 @@ class AndroidContextTesting {
         assertEquals("com.example.lifestyleapp", appContext.packageName)
     }
 
-
     @Test
     fun getWeatherTest() {
         val weather = getWeather(
