@@ -7,7 +7,7 @@ import com.google.gson.Gson
 class LocalData(activity: Activity?) {
     private val dataLabel: String = "LocalData"
     private val userLabel: String = "CurrentUser"
-    private val registerLabel: String  = "Registered"
+    private val registerLabel: String = "Registered"
 
     private val sharedPreferences = activity?.getSharedPreferences(dataLabel, Context.MODE_PRIVATE)
     // val sharedPreferences = activity.getSharedPreferences(DATA_LABEL, Context.MODE_PRIVATE)
@@ -43,7 +43,7 @@ class LocalData(activity: Activity?) {
         editor.apply()
     }
 
-    fun getRegister(): Boolean{
-        return sharedPreferences?.getBoolean(registerLabel,false) ?: false
+    fun getRegister(): Boolean {
+        return sharedPreferences?.getBoolean(registerLabel, false) ?: false
     }
 }

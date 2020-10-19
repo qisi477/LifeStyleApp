@@ -82,7 +82,7 @@ fun getWeather(location: Location?): Weather? {
 }
 
 
-/*
+/**
 docs https://openweathermap.org/current
 example query
 https://api.openweathermap.org/data/2.5/weather?q=Ogden,ut,usa&appid=a742f92606870e1ee06b22a9502b644d
