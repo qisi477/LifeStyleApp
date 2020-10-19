@@ -1,16 +1,23 @@
 package com.example.lifestyleapp.common
 
+import com.example.lifestyleapp.repositories.TrailRepository
 import com.example.lifestyleapp.repositories.WeatherRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 
-class HeavyWorker(private val dispatchers: DispatcherProvider = DefaultDispatcherProvider()) :
-    WeatherRepository {
-
-    override suspend fun loadData(location: Location): Weather? {
+//todo get better name for this file
+class WeatherRepositoryHolder : WeatherRepository {
+    override suspend fun loadWeather(location: Location): Weather? {
         return getWeather(location)
     }
 }
+
+class TrailRepositoryHolder : TrailRepository {
+    override suspend fun loadTrails(location: Location): List<Trail>? {
+        return getTrails(location)
+    }
+}
+
 
 interface DispatcherProvider {
     fun main(): CoroutineDispatcher = Dispatchers.Main
@@ -19,4 +26,3 @@ interface DispatcherProvider {
     fun unconfined(): CoroutineDispatcher = Dispatchers.Unconfined
 }
 
-class DefaultDispatcherProvider : DispatcherProvider

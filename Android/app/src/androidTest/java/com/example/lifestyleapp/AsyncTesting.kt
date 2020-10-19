@@ -1,10 +1,8 @@
 package com.example.lifestyleapp
 
-import com.example.lifestyleapp.common.DispatcherProvider
-import com.example.lifestyleapp.common.HeavyWorker
 import com.example.lifestyleapp.common.Location
 import com.example.lifestyleapp.common.Weather
-import kotlinx.coroutines.CoroutineDispatcher
+import com.example.lifestyleapp.common.WeatherRepositoryHolder
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.TestCoroutineDispatcher
@@ -28,7 +26,7 @@ class HeavyWorkerTest {
 
     @Test
     fun nullCity() = coroutinesTestRule.testDispatcher.runBlockingTest {
-        val weather = HeavyWorker(coroutinesTestRule.testDispatcherProvider).loadData(
+        val weather = WeatherRepositoryHolder().loadWeather(
             Location()
         )
         Assert.assertNull(weather)
@@ -36,7 +34,7 @@ class HeavyWorkerTest {
 
     @Test
     fun justCity() = coroutinesTestRule.testDispatcher.runBlockingTest {
-        val weather = HeavyWorker(coroutinesTestRule.testDispatcherProvider).loadData(
+        val weather = WeatherRepositoryHolder().loadWeather(
             Location(city = "Ogden")
         )
         notNull(weather)
@@ -44,7 +42,7 @@ class HeavyWorkerTest {
 
     @Test
     fun twoWordCity() = coroutinesTestRule.testDispatcher.runBlockingTest {
-        val weather = HeavyWorker(coroutinesTestRule.testDispatcherProvider).loadData(
+        val weather = WeatherRepositoryHolder().loadWeather(
             Location(city = "South Weber")
         )
         notNull(weather)
@@ -53,7 +51,7 @@ class HeavyWorkerTest {
 
     @Test
     fun threeWordCity() = coroutinesTestRule.testDispatcher.runBlockingTest {
-        val weather = HeavyWorker(coroutinesTestRule.testDispatcherProvider).loadData(
+        val weather = WeatherRepositoryHolder().loadWeather(
             Location(city = "Salt Lake City")
         )
         notNull(weather)
@@ -63,7 +61,7 @@ class HeavyWorkerTest {
 
     @Test
     fun useRunBlockingTest() = coroutinesTestRule.testDispatcher.runBlockingTest {
-        val weather = HeavyWorker(coroutinesTestRule.testDispatcherProvider).loadData(
+        val weather = WeatherRepositoryHolder().loadWeather(
             Location(
                 city = "ogden",
                 country = "United States",
@@ -104,13 +102,6 @@ class CoroutineTestRule(
     val testDispatcher: TestCoroutineDispatcher =
         TestCoroutineDispatcher()
 ) : TestWatcher() {
-
-    val testDispatcherProvider = object : DispatcherProvider {
-        override fun default(): CoroutineDispatcher = testDispatcher
-        override fun io(): CoroutineDispatcher = testDispatcher
-        override fun main(): CoroutineDispatcher = testDispatcher
-        override fun unconfined(): CoroutineDispatcher = testDispatcher
-    }
 
     override fun starting(description: Description?) {
         super.starting(description)

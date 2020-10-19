@@ -6,7 +6,7 @@ import com.beust.klaxon.Klaxon
 import java.io.StringReader
 import java.net.URL
 
-//todo not used
+//todo not used, outside of tests
 data class Trail(
     @Json(name = "id")
     val id: Int?,
@@ -80,7 +80,7 @@ fun getTrails(
                 "&minStars=$minStars" +
                 "&key=$apiKey"
 
-    val resultText = URL(url).readText()
+    val resultText = URL(url).readText() //todo make this use retrofit instead
 
     val resultJsonObject = Klaxon().parseJsonObject(reader = StringReader(resultText))
     if (resultJsonObject["success"] != 1) {

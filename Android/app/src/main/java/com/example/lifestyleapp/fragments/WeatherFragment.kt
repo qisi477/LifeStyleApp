@@ -7,10 +7,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import com.example.lifestyleapp.R
-import com.example.lifestyleapp.common.HeavyWorker
 import com.example.lifestyleapp.common.TAG_WEATHER
 import com.example.lifestyleapp.common.UserDataModel
 import com.example.lifestyleapp.common.Weather
+import com.example.lifestyleapp.common.WeatherRepositoryHolder
 import com.example.lifestyleapp.viewmodels.WeatherViewModel
 import kotlinx.android.synthetic.main.fragment_weather.*
 import kotlin.math.roundToInt
@@ -28,7 +28,7 @@ class WeatherFragment : Fragment(R.layout.fragment_weather) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        _weatherViewModel.weatherRepository = HeavyWorker()
+        _weatherViewModel.weatherRepository = WeatherRepositoryHolder()
         if (savedInstanceState == null) {
             arguments?.let {
                 val city = it.getString(CITY)

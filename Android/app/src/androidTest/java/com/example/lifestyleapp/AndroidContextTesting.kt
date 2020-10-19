@@ -73,7 +73,6 @@ class AndroidContextTesting {
         trails.forEach {
             assertNotNull(it)
         }
-        assertNotNull(trails)
     }
 }
 

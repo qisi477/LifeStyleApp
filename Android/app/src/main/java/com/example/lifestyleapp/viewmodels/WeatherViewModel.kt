@@ -4,9 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.lifestyleapp.common.HeavyWorker
 import com.example.lifestyleapp.common.Location
 import com.example.lifestyleapp.common.Weather
+import com.example.lifestyleapp.common.WeatherRepositoryHolder
 import com.example.lifestyleapp.repositories.WeatherRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -24,7 +24,7 @@ class WeatherViewModel : ViewModel() {
     fun onViewCreated(city: String?, country: String?) {
         viewModelScope.launch(Dispatchers.IO) {
             val fetchedWeather =
-                HeavyWorker().loadData(Location(city = city, country = country))
+                WeatherRepositoryHolder().loadWeather(Location(city = city, country = country))
             _weatherLiveData.postValue(fetchedWeather)
         }
     }

@@ -5,6 +5,6 @@ import com.example.lifestyleapp.common.Weather
 
 interface WeatherRepository {
 
-    suspend fun loadData(location: Location): Weather?
+    suspend fun loadWeather(location: Location): Weather?
 
 }
