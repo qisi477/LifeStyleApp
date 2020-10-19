@@ -29,14 +29,15 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
     packagingOptions {
         exclude 'META-INF/atomicfu.kotlin_module'
+
+        exclude 'META-INF/AL2.0'
+        exclude 'META-INF/LGPL2.1'
     }
 }
 
-ext {
-    coroutines = "1.3.1"
-}
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
@@ -49,8 +50,8 @@ dependencies {
     implementation 'com.google.android.material:material:1.2.1'
     implementation 'androidx.annotation:annotation:1.1.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.0'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.3.0'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.1'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.3.1'
     implementation 'androidx.room:room-runtime:2.2.5'
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
@@ -68,13 +69,11 @@ dependencies {
 
     // Lifecycle components
     implementation "androidx.lifecycle:lifecycle-extensions:$rootProject.archLifecycleVersion"
-    //noinspection LifecycleAnnotationProcessorWithJava8
     kapt "androidx.lifecycle:lifecycle-compiler:$rootProject.archLifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$rootProject.archLifecycleVersion"
 
     // Kotlin components
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    //noinspection GradleDependency
     api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$rootProject.coroutines"
     api "org.jetbrains.kotlinx:kotlinx-coroutines-android:$rootProject.coroutines"
 
@@ -84,18 +83,12 @@ dependencies {
     // Testing
     androidTestImplementation "androidx.arch.core:core-testing:$rootProject.coreTestingVersion"
     testImplementation "androidx.arch.core:core-testing:$rootProject.coreTestingVersion"
-    // If i put 1.3.7 (at the request of android studio) I get
-    // "More than one file was found with OS independent path 'META-INF/AL2.0'."
-    //noinspection GradleDependency
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines"
 
-    //noinspection GradleDependency
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines"
 
-    //noinspection GradleDependency
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines"
 
-    //noinspection GradleDependency
     androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines"
     annotationProcessor 'androidx.room:room-compiler:2.2.5'
 }

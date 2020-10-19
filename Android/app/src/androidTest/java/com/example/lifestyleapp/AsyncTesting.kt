@@ -17,7 +17,7 @@ import org.junit.rules.TestWatcher
 import org.junit.runner.Description
 
 /**
- * set up from https://craigrussell.io/2019/11/unit-testing-coroutine-suspend-functions-using-testcoroutinedispatcher/
+ * set up from this [example](https://craigrussell.io/2019/11/unit-testing-coroutine-suspend-functions-using-testcoroutinedispatcher/)
  */
 @ExperimentalCoroutinesApi
 class HeavyWorkerTest {
