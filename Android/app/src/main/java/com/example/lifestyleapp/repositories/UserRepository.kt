@@ -9,10 +9,6 @@ import com.example.lifestyleapp.common.UserDataModel
 class UserRepository (private val userDao: UserDao) {
     val allUsers: LiveData<List<UserDataModel>> = userDao.getUserLiveData()
 
-    suspend fun getUser(): List<UserDataModel> {
-        return userDao.getUsers()
-    }
-
     suspend fun setUser(newUser: UserDataModel) {
         //Log.d(TAG_XX, userDao.getUsers()[0].userName)
         if (userDao.getUsers().isNotEmpty()) {

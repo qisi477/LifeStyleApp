@@ -22,7 +22,6 @@ class AndroidContextTesting {
         assertEquals("com.example.lifestyleapp", appContext.packageName)
     }
 
-
     @Test
     fun getWeatherTest() {
         val weather = getWeather(
@@ -68,8 +67,13 @@ class AndroidContextTesting {
             latitude = 41.22F,
             longitude = -111.97F
         )
-        val trails = getTrails(location)
+        val trails = getTrails(location, maxResults = 10)
         assertNotNull(trails)
+        assertEquals(10, trails!!.size)
+        trails.forEach {
+            assertNotNull(it)
+        }
     }
 }
+
 

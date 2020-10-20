@@ -24,6 +24,7 @@
     <string name="gain">Gain Weight</string>
     <string name="bmi">BMI</string>
     <string name="placeholder">"-"</string>
+
     <string name="male">"Male"</string>
     <string name="female">"Female"</string>
     <string name="summary">Summary</string>

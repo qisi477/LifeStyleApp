@@ -29,9 +29,4 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
         //Log.d(TAG_XX, "ViewModel Tries to set user: ${user.userName}")
         userRepository.setUser(user)
     }
-
-    fun getOneUser() = viewModelScope.launch(Dispatchers.IO) {
-        val values = userRepository.getUser()
-        //Log.d(TAG_XX, "ViewModel Tries to get user: ${values[0].userName}")
-    }
 }

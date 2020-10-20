@@ -1,6 +1,5 @@
 package com.example.lifestyleapp.common
 
-import android.util.Log
 import com.beust.klaxon.Json
 import com.beust.klaxon.Klaxon
 import java.io.StringReader
@@ -15,6 +14,10 @@ data class Weather(
     val visibility: Int,
     @Json(name = "wind")
     val wind: Wind,
+    @Json(name = "sys")
+    val sys: Sys,
+    @Json(name = "name")
+    val city: String,
 )
 
 data class Coord(
@@ -63,6 +66,11 @@ data class Wind(
     val degreesDirection: Float,
 )
 
+data class Sys(
+    @Json(name = "country")
+    val countryCode: String
+)
+
 /**
  * provided by openweathermap, Current weather and forecast: Free plan
  * Allowed Calls per minute: 60
@@ -70,12 +78,11 @@ data class Wind(
 fun getWeather(location: Location?): Weather? {
     val url = location?.let { buildURL(it) } ?: return null
     val result: String = URL(url).readText()
-    Log.d(TAG_WEATHER, url + result)
     return jsonTextToWeather(result)
 }
 
 
-/*
+/**
 docs https://openweathermap.org/current
 example query
 https://api.openweathermap.org/data/2.5/weather?q=Ogden,ut,usa&appid=a742f92606870e1ee06b22a9502b644d
