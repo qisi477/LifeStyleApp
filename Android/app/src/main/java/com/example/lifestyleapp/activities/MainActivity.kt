@@ -12,10 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.lifestyleapp.R
 import com.example.lifestyleapp.common.*
-import com.example.lifestyleapp.fragments.MenuFragment
-import com.example.lifestyleapp.fragments.SettingFragment
-import com.example.lifestyleapp.fragments.SummaryFragment
-import com.example.lifestyleapp.fragments.WeatherFragment
+import com.example.lifestyleapp.fragments.*
 import com.example.lifestyleapp.viewmodels.UserViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_menu.*
@@ -124,6 +121,13 @@ class MainActivity : AppCompatActivity(), MenuFragment.DataParser, SettingFragme
                 val settingFragment = SettingFragment.newInstance()
                 val fragmentTransaction = supportFragmentManager.beginTransaction()
                 fragmentTransaction.replace(R.id.frame_detail, settingFragment, "summary_frag")
+                fragmentTransaction.commit()
+            }
+            Signals.STEP -> {
+                currentSignals = Signals.STEP
+                val stepCounterFragment = StepCounterFragment.newInstance()
+                val fragmentTransaction = supportFragmentManager.beginTransaction()
+                fragmentTransaction.replace(R.id.frame_detail, stepCounterFragment, "step_frag")
                 fragmentTransaction.commit()
             }
         }
