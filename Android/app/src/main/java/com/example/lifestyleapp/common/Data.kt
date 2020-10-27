@@ -5,7 +5,8 @@ enum class Signals {
     LOGOUT,
     HIKE,
     WEATHER,
-    SETTING
+    SETTING,
+    STEP
 }
 
 var currentSignals: Signals = Signals.SUMMARY

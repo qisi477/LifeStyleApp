@@ -85,6 +85,7 @@ class MenuFragment : Fragment(), View.OnClickListener {
         goal_lv.setOnClickListener(this)
         weather_lv.setOnClickListener(this)
         hikes_lv.setOnClickListener(this)
+        step_counter_lv.setOnClickListener(this)
 //        if (firstName != "null") {
 //            name_tv.text = firstName
 //        }
@@ -130,14 +131,17 @@ class MenuFragment : Fragment(), View.OnClickListener {
                 dataParser?.dataHandler(Signals.LOGOUT) ?: return
             }
             R.id.goal_lv -> {
-                Log.d(TAG_XX, "Click setting linear layout")
+                // Log.d(TAG_XX, "Click setting linear layout")
                 dataParser?.dataHandler(Signals.SETTING) ?: return
             }
             R.id.hikes_lv -> {
                 dataParser?.dataHandler(Signals.HIKE) ?: return
             }
             R.id.weather_lv -> {
-                dataParser?.dataHandler((Signals.WEATHER)) ?: return
+                dataParser?.dataHandler(Signals.WEATHER) ?: return
+            }
+            R.id.step_counter_lv -> {
+                dataParser?.dataHandler(Signals.STEP) ?: return
             }
         }
     }
