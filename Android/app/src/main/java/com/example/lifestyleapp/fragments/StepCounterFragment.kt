@@ -130,17 +130,7 @@ class StepCounterFragment : Fragment(), View.OnClickListener {
                     dx > mThreshold && dz > mThreshold ||
                     dy > mThreshold && dz > mThreshold
                 ) {
-                    try {
-                        val notification =
-                            RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
-                        val r = RingtoneManager.getRingtone(
-                            activity?.applicationContext,
-                            notification
-                        )
-                        r.play()
-                    } catch (e: Exception) {
-                        e.printStackTrace()
-                    }
+
                     if (!activated) {
                         stepCounter?.also { step ->
                             sensorManager.registerListener(
@@ -152,6 +142,8 @@ class StepCounterFragment : Fragment(), View.OnClickListener {
                         activated = !activated
                         Log.d(TAG_XX, "Active")
                     } else {
+                        playNotificationSound()
+
                         sensorManager.unregisterListener(stepListener)
                         stepViewModel?.insertStep(StepDataModel(0, steps))
                         activated = !activated
@@ -168,6 +160,20 @@ class StepCounterFragment : Fragment(), View.OnClickListener {
 
         override fun onAccuracyChanged(sensor: Sensor, i: Int) {
             return
+        }
+    }
+
+    private fun playNotificationSound() {
+        try {
+            val notification =
+                RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+            val r = RingtoneManager.getRingtone(
+                activity?.applicationContext,
+                notification
+            )
+            r.play()
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
     }
 
