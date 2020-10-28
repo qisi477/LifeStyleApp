@@ -12,7 +12,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import com.example.lifestyleapp.R
 import com.example.lifestyleapp.common.StepDataModel
 import com.example.lifestyleapp.common.TAG_XX
@@ -31,7 +30,7 @@ class StepCounterFragment : Fragment(), View.OnClickListener {
     private lateinit var sensorManager: SensorManager
     private var stepCounter: Sensor? = null
     private var linearAccelerometer: Sensor? = null
-    private val mThreshold = 8.0
+    private val mThreshold = 4.0
     private var stepViewModel: StepViewModel? = null
     private var steps = 0
     private var activated = false
@@ -64,11 +63,11 @@ class StepCounterFragment : Fragment(), View.OnClickListener {
         super.onViewCreated(view, savedInstanceState)
         reset_btn.setOnClickListener(this)
         stepViewModel = activity?.application?.let { StepViewModel(application = it) }
-        stepViewModel?.steps?.observe(viewLifecycleOwner, Observer {
+        stepViewModel?.steps?.observe(viewLifecycleOwner, {
             if (it.isNotEmpty()) {
-                val stepToShow = it[it.size - 1]
-                step_tv.text = stepToShow.step.toString()
-                steps = stepToShow.id
+                val stepToShow = it[0]
+                step_tv.text = stepToShow.step++.toString()
+                steps = stepToShow.step
             }
         })
     }
@@ -104,7 +103,6 @@ class StepCounterFragment : Fragment(), View.OnClickListener {
     private val stepListener: SensorEventListener = object : SensorEventListener {
         override fun onSensorChanged(event: SensorEvent?) {
             if (event != null) {
-                step_tv.text = event.values[0].toString()
                 steps += event.values[0].toInt()
             }
         }
@@ -179,6 +177,7 @@ class StepCounterFragment : Fragment(), View.OnClickListener {
                 Log.d(TAG_XX, "Reset Btn")
                 step_tv.text = "0"
                 steps = 0
+                stepViewModel?.insertStep(StepDataModel(0, steps))
             }
         }
     }
