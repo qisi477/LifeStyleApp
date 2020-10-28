@@ -26,12 +26,12 @@ import kotlin.math.abs
  * Use the [StepCounterFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class StepCounterFragment : Fragment(), View.OnClickListener{
+class StepCounterFragment : Fragment(), View.OnClickListener {
 
     private lateinit var sensorManager: SensorManager
     private var stepCounter: Sensor? = null
     private var linearAccelerometer: Sensor? = null
-    private val mThreshold = 2.0
+    private val mThreshold = 8.0
     private var stepViewModel: StepViewModel? = null
     private var steps = 0
     private var activated = false
@@ -66,9 +66,9 @@ class StepCounterFragment : Fragment(), View.OnClickListener{
         stepViewModel = activity?.application?.let { StepViewModel(application = it) }
         stepViewModel?.steps?.observe(viewLifecycleOwner, Observer {
             if (it.isNotEmpty()) {
-                val stepToShow = it[0]
+                val stepToShow = it[it.size - 1]
                 step_tv.text = stepToShow.step.toString()
-                steps = stepToShow.step
+                steps = stepToShow.id
             }
         })
     }
@@ -101,7 +101,7 @@ class StepCounterFragment : Fragment(), View.OnClickListener{
             }
     }
 
-    private val stepListener: SensorEventListener = object: SensorEventListener {
+    private val stepListener: SensorEventListener = object : SensorEventListener {
         override fun onSensorChanged(event: SensorEvent?) {
             if (event != null) {
                 step_tv.text = event.values[0].toString()
@@ -109,9 +109,10 @@ class StepCounterFragment : Fragment(), View.OnClickListener{
             }
         }
 
-        override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) { return }
+        override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
+            return
+        }
     }
-
 
 
     private val linearAccelerometerListener: SensorEventListener = object : SensorEventListener {
@@ -167,7 +168,9 @@ class StepCounterFragment : Fragment(), View.OnClickListener{
 
         }
 
-        override fun onAccuracyChanged(sensor: Sensor, i: Int) { return }
+        override fun onAccuracyChanged(sensor: Sensor, i: Int) {
+            return
+        }
     }
 
     override fun onClick(v: View?) {
