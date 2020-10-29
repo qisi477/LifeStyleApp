@@ -1,21 +1,34 @@
 package com.example.lifestyleapp.activities
 
 import android.content.Intent
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import com.amazonaws.auth.BasicAWSCredentials
+import com.amazonaws.mobile.client.AWSMobileClient
+import com.amazonaws.mobileconnectors.s3.transferutility.TransferListener
+import com.amazonaws.mobileconnectors.s3.transferutility.TransferState
+import com.amazonaws.mobileconnectors.s3.transferutility.TransferUtility
+import com.amazonaws.services.s3.AmazonS3Client
+import com.amplifyframework.AmplifyException
+import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin
+import com.amplifyframework.core.Amplify
+import com.amplifyframework.storage.options.StorageUploadFileOptions
+import com.amplifyframework.storage.s3.AWSS3StoragePlugin
 import com.example.lifestyleapp.R
-import com.example.lifestyleapp.common.*
+import com.example.lifestyleapp.common.LocalData
+import com.example.lifestyleapp.common.Signals
+import com.example.lifestyleapp.common.currentSignals
+import com.example.lifestyleapp.common.fakeUser2
 import com.example.lifestyleapp.fragments.*
 import com.example.lifestyleapp.viewmodels.UserViewModel
+import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_menu.*
+import java.io.File
+
 
 class MainActivity : AppCompatActivity(), MenuFragment.DataParser, SettingFragment.SettingData,
     View.OnClickListener {
@@ -42,7 +55,105 @@ class MainActivity : AppCompatActivity(), MenuFragment.DataParser, SettingFragme
             fragmentTransaction.commit()
         }
         dataHandler(currentSignals)
+
+//        val item = Todo.builder()
+//                .name("Finish quarterly taxes")
+//                .priority(Priority.HIGH)
+//                .description("Taxes are due for the quarter next week")
+//                .build()
+
+//        Amplify.DataStore.save(
+//                item,
+//                { success -> Log.i("Tutorial", "Saved item: " + success.item().name) },
+//                { error -> Log.e("Tutorial", "Could not save item to DataStore", error) }
+//        )
+
+//        Amplify.DataStore.query(
+//                Todo::class.java,
+//                Where.matches(
+//                        Todo.PRIORITY.eq(Priority.HIGH)
+//                ),
+//                { todos ->
+//                    while (todos.hasNext()) {
+//                        val todo = todos.next()
+//                        val name = todo.name;
+//                        val priority: Priority? = todo.priority
+//                        val description: String? = todo.description
+//
+//                        Log.i("Tutorial", "==== Todo ====")
+//                        Log.i("Tutorial", "Name: $name")
+//
+//                        if (priority != null) {
+//                            Log.i("Tutorial", "Priority: $priority")
+//                        }
+//
+//                        if (description != null) {
+//                            Log.i("Tutorial", "Description: $description")
+//                        }
+//                    }
+//                },
+//                { failure -> Log.e("Tutorial", "Could not query DataStore", failure) }
+//        )
+
+//        Amplify.DataStore.observe(Todo::class.java,
+//                { Log.i("Tutorial", "Observation began.") },
+//                { Log.i("Tutorial", it.item().toString()) },
+//                { Log.e("Tutorial", "Observation failed.", it) },
+//                { Log.i("Tutorial", "Observation complete.") }
+//        )
+
     }
+
+//    fun uploadWithTransferUtility() {
+//        val KEY = "AKIA55S7EGV7FJZ5PZRP"
+//        val SECRET = "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"
+//        val credentials = BasicAWSCredentials(KEY, SECRET)
+//        val s3Client = AmazonS3Client(credentials)
+//        val transferUtility = TransferUtility.builder()
+//            .context(applicationContext)
+//            .awsConfiguration(AWSMobileClient.getInstance().configuration)
+//            .s3Client(s3Client)
+//            .build()
+//        val uploadObserver = transferUtility.upload(
+//            "s3Folder/s3Key.txt",
+//            File("/path/to/file/localFile.txt")
+//        )
+//
+//        // Attach a listener to the observer to get state update and progress notifications
+//        uploadObserver.setTransferListener(object : TransferListener {
+//            override fun onStateChanged(id: Int, state: TransferState) {
+//                if (TransferState.COMPLETED == state) {
+//                    // Handle a completed upload.
+//                    Log.d("YourActivity", "Upload Completed")
+//                }
+//            }
+//
+//            override fun onProgressChanged(id: Int, bytesCurrent: Long, bytesTotal: Long) {
+//                val percentDonef = bytesCurrent.toFloat() / bytesTotal.toFloat() * 100
+//                val percentDone = percentDonef.toInt()
+//                Log.d(
+//                    "YourActivity", "ID:" + id + " bytesCurrent: " + bytesCurrent
+//                            + " bytesTotal: " + bytesTotal + " " + percentDone + "%"
+//                )
+//            }
+//
+//            override fun onError(id: Int, ex: Exception) {
+//                // Handle errors
+//                Log.d("YourActivity", "Upload Error$ex")
+//            }
+//        })
+//
+//        // If you prefer to poll for the data, instead of attaching a
+//        // listener, check for the state and progress in the observer.
+//        if (TransferState.COMPLETED == uploadObserver.state) {
+//            // Handle a completed upload.
+//            Log.d("YourActivity", "Upload Completed")
+//        }
+//        Log.d("YourActivity", "Bytes Transferrred: " + uploadObserver.bytesTransferred)
+//        Log.d("YourActivity", "Bytes Total: " + uploadObserver.bytesTotal)
+//    }
+//
+
 
     override fun onClick(p0: View?) {
         when (p0?.id) {

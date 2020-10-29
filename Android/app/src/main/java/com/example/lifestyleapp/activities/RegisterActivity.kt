@@ -10,10 +10,16 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.amplifyframework.AmplifyException
+import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin
+import com.amplifyframework.core.Amplify
+import com.amplifyframework.storage.options.StorageUploadFileOptions
+import com.amplifyframework.storage.s3.AWSS3StoragePlugin
 import com.example.lifestyleapp.R
 import com.example.lifestyleapp.common.LocalData
 import com.example.lifestyleapp.common.UserDataModel
 import com.example.lifestyleapp.viewmodels.UserViewModel
+import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.activity_register.*
 import java.io.File
 import java.io.FileOutputStream
@@ -35,6 +41,30 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
         register_label_bt?.setOnClickListener(this)
         takePicture_label_bt?.setOnClickListener(this)
         //upload_label_bt?.setOnClickListener(this)
+
+        try {
+            // Add these lines to add the AWSCognitoAuthPlugin and AWSS3StoragePlugin plugins
+            Amplify.addPlugin(AWSCognitoAuthPlugin())
+            Amplify.addPlugin(AWSS3StoragePlugin())
+            Amplify.configure(applicationContext)
+
+            Log.i("MyAmplifyApp", "Initialized Amplify")
+        } catch (error: AmplifyException) {
+            Log.e("MyAmplifyApp", "Could not initialize Amplify", error)
+        }
+
+    }
+
+    private fun uploadFile(file:File) {
+
+        Amplify.Storage.uploadFile(
+            "ExampleKey",
+            file,
+            StorageUploadFileOptions.defaultInstance(),
+            { progress -> Log.i("MyAmplifyApp", "Fraction completed: ${progress.fractionCompleted}") },
+            { result -> Log.i("MyAmplifyApp", "Successfully uploaded: ${result.getKey()}") },
+            { error -> Log.e("MyAmplifyApp", "Upload failed", error) }
+        )
     }
 
     override fun onClick(p0: View?) {
@@ -53,6 +83,14 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                     finish()
+
+                    // build json file
+                    val gsonPretty = GsonBuilder().setPrettyPrinting().create()
+                    val jsonTutsListPretty: String = gsonPretty.toJson(user)
+                    val file=File(user.userName);
+                    file.writeText(jsonTutsListPretty)
+                    // upload file
+                    uploadFile(file);
                 }
             }
         }
