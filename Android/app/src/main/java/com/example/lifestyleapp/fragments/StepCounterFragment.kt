@@ -12,7 +12,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import com.example.lifestyleapp.R
 import com.example.lifestyleapp.common.StepDataModel
 import com.example.lifestyleapp.common.TAG_XX
@@ -26,12 +25,12 @@ import kotlin.math.abs
  * Use the [StepCounterFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class StepCounterFragment : Fragment(), View.OnClickListener{
+class StepCounterFragment : Fragment(), View.OnClickListener {
 
     private lateinit var sensorManager: SensorManager
     private var stepCounter: Sensor? = null
     private var linearAccelerometer: Sensor? = null
-    private val mThreshold = 2.0
+    private val mThreshold = 4.0
     private var stepViewModel: StepViewModel? = null
     private var steps = 0
     private var activated = false
@@ -64,10 +63,10 @@ class StepCounterFragment : Fragment(), View.OnClickListener{
         super.onViewCreated(view, savedInstanceState)
         reset_btn.setOnClickListener(this)
         stepViewModel = activity?.application?.let { StepViewModel(application = it) }
-        stepViewModel?.steps?.observe(viewLifecycleOwner, Observer {
+        stepViewModel?.steps?.observe(viewLifecycleOwner, {
             if (it.isNotEmpty()) {
                 val stepToShow = it[0]
-                step_tv.text = stepToShow.step.toString()
+                step_tv.text = stepToShow.step++.toString()
                 steps = stepToShow.step
             }
         })
@@ -101,17 +100,17 @@ class StepCounterFragment : Fragment(), View.OnClickListener{
             }
     }
 
-    private val stepListener: SensorEventListener = object: SensorEventListener {
+    private val stepListener: SensorEventListener = object : SensorEventListener {
         override fun onSensorChanged(event: SensorEvent?) {
             if (event != null) {
-                step_tv.text = event.values[0].toString()
                 steps += event.values[0].toInt()
             }
         }
 
-        override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) { return }
+        override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
+            return
+        }
     }
-
 
 
     private val linearAccelerometerListener: SensorEventListener = object : SensorEventListener {
@@ -131,17 +130,7 @@ class StepCounterFragment : Fragment(), View.OnClickListener{
                     dx > mThreshold && dz > mThreshold ||
                     dy > mThreshold && dz > mThreshold
                 ) {
-                    try {
-                        val notification =
-                            RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
-                        val r = RingtoneManager.getRingtone(
-                            activity?.applicationContext,
-                            notification
-                        )
-                        r.play()
-                    } catch (e: Exception) {
-                        e.printStackTrace()
-                    }
+
                     if (!activated) {
                         stepCounter?.also { step ->
                             sensorManager.registerListener(
@@ -153,6 +142,8 @@ class StepCounterFragment : Fragment(), View.OnClickListener{
                         activated = !activated
                         Log.d(TAG_XX, "Active")
                     } else {
+                        playNotificationSound()
+
                         sensorManager.unregisterListener(stepListener)
                         stepViewModel?.insertStep(StepDataModel(0, steps))
                         activated = !activated
@@ -167,7 +158,23 @@ class StepCounterFragment : Fragment(), View.OnClickListener{
 
         }
 
-        override fun onAccuracyChanged(sensor: Sensor, i: Int) { return }
+        override fun onAccuracyChanged(sensor: Sensor, i: Int) {
+            return
+        }
+    }
+
+    private fun playNotificationSound() {
+        try {
+            val notification =
+                RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+            val r = RingtoneManager.getRingtone(
+                activity?.applicationContext,
+                notification
+            )
+            r.play()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     override fun onClick(v: View?) {
@@ -176,6 +183,7 @@ class StepCounterFragment : Fragment(), View.OnClickListener{
                 Log.d(TAG_XX, "Reset Btn")
                 step_tv.text = "0"
                 steps = 0
+                stepViewModel?.insertStep(StepDataModel(0, steps))
             }
         }
     }

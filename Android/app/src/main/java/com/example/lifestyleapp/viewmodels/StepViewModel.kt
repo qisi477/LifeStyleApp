@@ -10,7 +10,7 @@ import com.example.lifestyleapp.repositories.StepRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class StepViewModel(application: Application): AndroidViewModel(application) {
+class StepViewModel(application: Application) : AndroidViewModel(application) {
     private val stepRepository: StepRepository
     val steps: LiveData<List<StepDataModel>>
 
@@ -26,4 +26,5 @@ class StepViewModel(application: Application): AndroidViewModel(application) {
     fun insertStep(step: StepDataModel) = viewModelScope.launch(Dispatchers.IO) {
         stepRepository.insertStep(step)
     }
+
 }

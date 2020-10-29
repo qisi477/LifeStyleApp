@@ -5,9 +5,9 @@ import androidx.room.PrimaryKey
 import org.jetbrains.annotations.NotNull
 
 @Entity(tableName = "step_table")
-class StepDataModel (
-    @PrimaryKey(autoGenerate = true)
+class StepDataModel(
+    @PrimaryKey
     var id: Int = 0,
     @NotNull
-    var step : Int
+    var step: Int
 )
