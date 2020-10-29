@@ -1,5 +1,9 @@
 package com.example.lifestyleapp.common
 
+import androidx.annotation.NonNull
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.beust.klaxon.Json
 import com.beust.klaxon.Klaxon
 import java.io.StringReader
@@ -109,3 +113,21 @@ fun jsonTextToWeather(jsonText: String): Weather? {
     }
     return Klaxon().parse<Weather>(reader = StringReader(jsonText))
 }
+
+@Entity(tableName = "weather_table")
+data class WeatherEntity(
+    @PrimaryKey
+    @NonNull
+    @ColumnInfo(name = "country")
+    var countryCode: String,
+    val longitude: Float,
+    val latitude: Float,
+    val tempKelvin: Float,
+    val feelsLikeTempKelvin: Float,
+    val tempMinKelvin: Float,
+    val tempMaxKelvin: Float,
+    val atmosphericPressure: Int,
+    val humidityPercent: Int,
+    val speedMetersPerSecond: Float,
+    val degreesDirection: Float,
+)
