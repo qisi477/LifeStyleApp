@@ -5,9 +5,9 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.lifestyleapp.Room.Daos.WeatherDao
-import com.example.lifestyleapp.common.UserDataModel
+import com.example.lifestyleapp.common.WeatherEntity
 
-@Database(entities = arrayOf(UserDataModel::class), version = 1, exportSchema = false)
+@Database(entities = arrayOf(WeatherEntity::class), version = 1, exportSchema = false)
 abstract class WeatherDatabase: RoomDatabase(){
     abstract fun weatherDao(): WeatherDao
 
